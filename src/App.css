@@ -151,10 +151,33 @@ section {
   }
 }
 
-/* help area */
-#help-section{
-
+/*Post box*/
+.PostBox{
+  margin: 25px;
+  padding: 5px;
+  width: calc(100%- 35px);
 }
+
+.post-card{
+  margin: 2px;
+  margin-top: 16px;
+  box-shadow: 0 1px 20px rgba(46, 61, 73, .2);
+  background-color: #ffffff;
+  border-top: solid 3px #02b3e4;
+}
+
+.post-title{
+  padding-top: 5px ;
+  padding-bottom: 5px; 
+  color: rgb(33, 150, 243)
+}
+
+.post-subtitle{
+  margin-right:15px;
+  margin-top: 5px;
+  display: inline-block;
+}
+/* help area */
 
 #help-content{
   font-family: 'Montserrat Alternates', sans-serif;

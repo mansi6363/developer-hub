@@ -1,8 +1,7 @@
 import React from 'react';
-import { Component } from 'react';
 import AppBar from 'material-ui/AppBar';
 
-class AppBarComponent extends Component{
+class AppBarComponent extends React.Component{
     render(){
         return (
             <AppBar
