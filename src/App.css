@@ -172,6 +172,16 @@ section {
   color: rgb(33, 150, 243)
 }
 
+.rating-section{
+  margin-top:15px
+}
+
+.rating-icon{
+  display: inline-block;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
 .post-subtitle{
   margin-right:15px;
   margin-top: 5px;
