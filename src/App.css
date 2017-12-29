@@ -1,0 +1,182 @@
+/* removing unwanted padding and margin */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  background-color: #f7f7f7;
+}
+
+/*adding style for header */
+header {
+  box-shadow: 0 1px 20px rgba(46, 61, 73, .2);
+  background-color: rgb(7, 78, 104);
+  color: antiquewhite;
+  border-bottom: solid 3px #9E9E9E;
+  padding: 20px 0 20px 20px;
+  font-family: 'Architects Daughter', cursive;
+}
+
+.header-name{
+  display: inline;
+}
+
+.header-name h1{
+  display: inline;
+}
+
+/* styling for all sections */
+section {
+  min-height: 40vh;
+}
+
+/*styling for section headers */
+.section-heading{
+  font-size: 36px;
+}
+
+/* basic styling for all sections */
+.section-basics {
+  font-family: 'Shadows Into Light Two', cursive;
+  text-align: center;
+  padding: 16px;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+
+.sec-division {
+  display: inline-block;
+}
+
+
+@media only screen and (max-width: 675px) {
+  .sec-division {
+      display: block;
+      margin: auto;
+      padding: 25px;
+  }
+}
+/*styling for cover*/
+
+
+/*keyframes for animation*/
+/*both key frames are opposite of each other */
+/*keyframes 1 - is in display initially*/
+/*keyframes 2 - is hidden initially*/
+@keyframes hide-1 {
+  0% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+
+}
+
+@keyframes hide-2 {
+  0% {
+      opacity: 0;
+  }
+  50% {
+      opacity: 1;
+  }
+  100% {
+      opacity: 0;
+  }
+}
+
+#cover {
+  background-color: rgb(8, 90, 120);
+  min-height: 60vh;
+  width: 100%;
+  box-shadow: 0 1px 20px rgba(46, 61, 73, .2);
+}
+
+
+#cover-image {
+  width: 55%;
+  height: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#cover-image img {
+  display: inline-block;
+  margin-top: 50px;
+  height: 200px;
+  width: 200px;
+  margin-right: auto;
+  margin-left: auto;
+  vertical-align: middle;
+}
+
+#cover-text {
+  color: white;
+  height: 100%;
+  width: 30%;
+  text-align: center;
+  font-size: 30px;
+  min-width: 290px;
+  vertical-align: middle;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/* cover text are the text displayed in cover */
+#cover-text-1 {
+  animation: hide-1;
+  animation-delay: 1s;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+#cover-text-2 {
+  opacity: 0;
+  animation: hide-2;
+  animation-delay: 1s;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@media only screen and (max-width: 675px) {
+  #cover-image img {
+      height: 100px;
+      width: 100px;
+  }
+}
+
+/* help area */
+#help-section{
+
+}
+
+#help-content{
+  font-family: 'Montserrat Alternates', sans-serif;
+  padding: 25px;
+}
+
+#help-links a{
+  font-size: larger;
+  border: solid 1px #9E9E9E;
+  border-radius: 80px;
+  padding: 10px;
+  text-decoration: none;
+  color: #212121;
+}
+
+/*styling footer */
+footer{
+  box-shadow: 0 1px 20px rgba(46, 61, 73, .2);
+  background-color: rgb(7, 78, 104);
+  font-family: 'Montserrat Alternates', sans-serif;
+  color: antiquewhite;
+  text-align: center;
+  border-top: solid 3px #9E9E9E;
+  padding: 20px;
+}
