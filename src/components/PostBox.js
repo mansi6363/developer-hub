@@ -3,22 +3,11 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
-import Paper from 'material-ui/Paper';
-import Up from 'material-ui/svg-icons/action/thumb-up';
-import Down from 'material-ui/svg-icons/action/thumb-down';
+import Rating from './Rating'
 
 //Post box class renders posts posted by users
 class PostBox extends React.Component{
 
-    style={
-        paper:{
-            marginLeft:15,
-            marginRight:15,
-            padding: 10,
-            display: 'inline-block'
-        }
-    }
-    
     render(){
         return (
             <section className='PostBox'>
@@ -55,11 +44,7 @@ class PostBox extends React.Component{
                                             <div>
                                                 {post.body}
                                             </div>
-                                            <div className='rating-section'>
-                                                 <div className='rating-icon'><Up/></div>
-                                                 <Paper style={this.style.paper}>{post.voteScore}</Paper>        
-                                                 <div className='rating-icon'><Down/></div> 
-                                            </div>
+                                            <Rating voteScore={post.voteScore}/>
                                         </CardText>
                                         <CardText expandable={true}>
                                         Comment
