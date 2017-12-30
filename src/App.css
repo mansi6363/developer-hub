@@ -151,6 +151,13 @@ section {
   }
 }
 
+@media only screen and (max-width: 320px) {
+  #cover-text {
+    font-size: 10px;
+    min-width: 100px;
+  }
+}
+
 /*Post box*/
 .PostBox{
   margin: 25px;
@@ -186,21 +193,6 @@ section {
   margin-right:15px;
   margin-top: 5px;
   display: inline-block;
-}
-/* help area */
-
-#help-content{
-  font-family: 'Montserrat Alternates', sans-serif;
-  padding: 25px;
-}
-
-#help-links a{
-  font-size: larger;
-  border: solid 1px #9E9E9E;
-  border-radius: 80px;
-  padding: 10px;
-  text-decoration: none;
-  color: #212121;
 }
 
 /*styling footer */
