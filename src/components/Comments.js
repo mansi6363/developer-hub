@@ -49,12 +49,10 @@ class Comments extends React.Component{
     }
 
     componentWillMount(){
-        console.log(ListItem.defaultProps);
         ListItem.defaultProps.disabled=true;
     }
 
     componentDidMount(){
-        console.log();
         this.setState({
             comments:comments.filter((comment)=>(comment.parentId === this.props.postID)),
             loaded:true
