@@ -4,6 +4,8 @@ import Header from './Header'
 import Cover from './Cover'
 import AppBarComponents from './AppBar'
 import PostBox from './PostBox'
+import { Route } from 'react-router-dom'
+import Poster from './Poster'
 
 const posts = [
   {
@@ -34,9 +36,14 @@ class App extends Component {
     return (
       <div>
       <Header/>
-      <Cover/>
-      <AppBarComponents categories={categories}/>
-      <PostBox posts={posts}/>
+      <Route exact path='/' render={()=>(
+        <div>
+          <Cover/>
+          <AppBarComponents categories={categories}/>
+          <PostBox posts={posts}/>
+        </div>
+      )} />
+      <Route path='/post' component={ Poster }/>
       </div>
     );
   }

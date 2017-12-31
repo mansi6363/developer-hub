@@ -1,6 +1,7 @@
 import React from 'react';
 import Rating from './Rating';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Link} from 'react-router-dom'
 
 function postCard(props){
     return (
@@ -10,7 +11,15 @@ function postCard(props){
                 <CardHeader
                     title= {
                         <h1 className='post-title'>
-                            {props.post.title}
+                            {props.link?
+                                <Link to={{
+                                    pathname:'/post',
+                                    state:{post:props.post}
+                                }}>
+                                    {props.post.title}
+                                </Link>:
+                                props.post.title
+                            }
                         </h1>   
                     }
                     subtitle={ 
@@ -19,6 +28,7 @@ function postCard(props){
                             <div className='post-subtitle'>{`Author: ${props.post.author}`}</div>
                         </div>
                     }
+
                 />
                 <CardText>
                     <div>

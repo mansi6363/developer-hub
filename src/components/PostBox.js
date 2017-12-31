@@ -21,7 +21,7 @@ class PostBox extends React.Component{
                 <div className='PostsArea'>
                     {this.props.posts.map((post)=>{
                         return (
-                        <PostCard post={post} key={post.id}/>
+                        <PostCard post={post} key={post.id} link={true}/>
                     );})}
                 
                 </div>

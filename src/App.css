@@ -179,6 +179,14 @@ section {
   color: rgb(33, 150, 243)
 }
 
+.post-title a{
+text-decoration: none;
+}
+
+.post-title a:visited{
+  color: rgb(33, 150, 243);
+}
+
 .rating-section{
   margin-top:15px
 }
@@ -193,6 +201,28 @@ section {
   margin-right:15px;
   margin-top: 5px;
   display: inline-block;
+}
+
+/*comments*/
+.comments-section{
+  margin-top: 20px;
+}
+
+.comment-author{
+  color: rgb(33, 150, 243);
+  padding: 5px 0px 16px 0px;
+}
+
+.comment{
+  padding: 5px 0px 5px 0px;
+}
+
+.comment-sec{
+  padding: 10px 0px 5px 0px;
+}
+
+.add-comment-area{
+  margin: 20px 0px 10px 0px; 
 }
 
 /*styling footer */
