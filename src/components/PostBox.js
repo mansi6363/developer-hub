@@ -4,12 +4,14 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
 import PostCard from './PostCard';
 import Dialog from 'material-ui/Dialog';
+import AddPost from './AddPost'
+
 
 //Post box class renders posts posted by users
 class PostBox extends React.Component{
 
     state={
-        addPostOpen:false
+        addPostOpen:false,
     }
 
     handleOpenPost = () => {
@@ -23,14 +25,14 @@ class PostBox extends React.Component{
     render(){
 
         const actions = [
-            <FlatButton
+            <RaisedButton
               label="Cancel"
-              primary={true}
+              backgroundColor='#F44336'
               onClick={this.handleClosePost}
             />,
-            <FlatButton
+            <RaisedButton
               label="Post"
-              primary={true}
+              backgroundColor="#a4c639"
               keyboardFocused={true}
               onClick={function(){}} //TODO: set onClick Listener
             />,
@@ -47,13 +49,16 @@ class PostBox extends React.Component{
                     icon={<ContentAdd />}
                 />
                 <Dialog
-                    title="Add Post"
+                    title={<h1>Add Post</h1>}
                     actions={actions}
                     modal={false}
                     open={this.state.addPostOpen}
                     onRequestClose={this.handleClose}
+                    bodyClassName='dialog'
+                    titleClassName='dialog-title'
+                    actionsContainerClassName='dialog-action'
                 >
-                    Hello
+                    <AddPost/>
                 </Dialog>
                 </div>
                 <div className='PostsArea'>
