@@ -1,6 +1,6 @@
 import React from 'react';
 import Rating from './Rating';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 import {Link} from 'react-router-dom'
 
 function postCard(props){

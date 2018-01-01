@@ -18,9 +18,9 @@ class AddPost extends React.Component{
 
     state={
         category:null,
-        author:null,
-        title:null,
-        body:null
+        author:'',
+        title:'',
+        body:''
     }
 
     handleCategoryChange = (event, index, value) => this.setState({category:value});
