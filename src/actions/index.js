@@ -2,23 +2,33 @@
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST_RATE = 'UPDATE_POST_RATE'
+export const EDIT_POST = 'EDIT_POST'
 
 //ACTION RELATED TO COMMENTS
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UPDATE_COMMENT_RATE = 'UPDATE_COMMENT_RATE'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 //POST ACTION CREATERS
-export function addPost(id, timestamp=Date.now(), title, body, author, category, voteScore){
+export function addPost(title, body, author, category){
     return{
         type: ADD_POST,
-        timestamp,
         title,
         body,
         author,
-        category,
-        voteScore,
-        deleted: false
+        category
+    }
+}
+
+export function editPost(id, title, body, author, category){
+    return{
+        type: EDIT_POST,
+        id,
+        title,
+        body,
+        author,
+        category
     }
 }
 
@@ -38,16 +48,21 @@ export function updatePostRate(id, rate){
 }
 
 //COMMENT ACTION CREATERS
-export function addComment(id,parentID ,timestamp=Date.now(), body, author, voteScore){
+export function addComment(parentID, body, author){
     return{
         type: ADD_COMMENT,
-        timestamp,
-        title,
         body,
         author,
-        category,
-        voteScore,
-        deleted: false
+        parentID
+    }
+}
+
+export function editComment(id, body, author){
+    return{
+        type: EDIT_COMMENT,
+        id,
+        body,
+        author
     }
 }
 
