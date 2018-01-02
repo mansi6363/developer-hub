@@ -1,13 +1,15 @@
 // ACTIONS RELATED TO POST
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
-export const UPDATE_POST_RATE = 'UPDATE_POST_RATE'
+export const UP_POST_RATE = 'UP_POST_RATE'
+export const DOWN_POST_RATE = 'DOWN_POST_RATE'
 export const EDIT_POST = 'EDIT_POST'
 
 //ACTION RELATED TO COMMENTS
 export const ADD_COMMENT = 'ADD_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
-export const UPDATE_COMMENT_RATE = 'UPDATE_COMMENT_RATE'
+export const UP_COMMENT_RATE = 'UP_COMMENT_RATE'
+export const DOWN_COMMENT_RATE = 'DOWN_COMMENT_RATE'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 //POST ACTION CREATERS
@@ -39,11 +41,17 @@ export function deletePost(id){
     }
 }
 
-export function updatePostRate(id, rate){
+export function upPostRate(id){
     return{
         type: UPDATE_POST_RATE,
-        id,
-        rate
+        id
+    }
+}
+
+export function downPostRate(id){
+    return{
+        type: DOWN_POST_RATE,
+        id
     }
 }
 
@@ -73,10 +81,16 @@ export function deleteComment(id){
     }
 }
 
-export function updateCommentRate(id, rate){
+export function upCommentRate(id){
     return{
         type: UPDATE_COMMENT_RATE,
-        id,
-        rate
+        id
+    }
+}
+
+export function downCommentRate(id){
+    return{
+        type: DOWN_COMMENT_RATE,
+        id
     }
 }
