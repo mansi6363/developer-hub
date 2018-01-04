@@ -6,6 +6,7 @@ import AppBarComponents from './AppBar'
 import PostBox from './PostBox'
 import { Route } from 'react-router-dom'
 import Poster from './Poster'
+import { connect } from 'react-redux'
 
 const posts = [
   {
@@ -33,6 +34,8 @@ const categories=['All','react', 'javascript', 'angular', 'udacity'];
 
 class App extends Component {
   render() {
+
+    console.log(this.props);
     return (
       <div>
       <Header/>
@@ -49,4 +52,10 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps(state){
+  return{
+    posts: state.posts            //it will create a prop property containing all posts stored in store 
+  }
+}
+
+export default connect(mapStateToProps)(App);
