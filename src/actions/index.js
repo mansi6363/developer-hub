@@ -43,7 +43,7 @@ export function deletePost(id){
 
 export function upPostRate(id){
     return{
-        type: UPDATE_POST_RATE,
+        type: UP_POST_RATE,
         id
     }
 }
@@ -83,7 +83,7 @@ export function deleteComment(id){
 
 export function upCommentRate(id){
     return{
-        type: UPDATE_COMMENT_RATE,
+        type: UP_COMMENT_RATE,
         id
     }
 }

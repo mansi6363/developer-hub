@@ -7,7 +7,7 @@ import {
     DOWN_POST_RATE
 } from '../actions/index'
 
-initialPostState = {
+const initialPostState = {
     posts: [],      //keep all the post stored
     nextPostID:1    //keep account of id of new post
 }
