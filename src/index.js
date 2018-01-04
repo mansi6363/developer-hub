@@ -16,11 +16,11 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <MuiThemeProvider>
-            <BrowserRouter>
+        <BrowserRouter>
+            <MuiThemeProvider>
                 <App />
-            </BrowserRouter>
-        </MuiThemeProvider>
+            </MuiThemeProvider>
+        </BrowserRouter>
     </Provider>, 
     document.getElementById('root'));
 registerServiceWorker();

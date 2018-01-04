@@ -4,6 +4,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import PostCard from './PostCard';
 import Dialog from 'material-ui/Dialog';
 import AddPost from './AddPost'
+import { connect } from 'react-redux'
 
 
 //Post box class renders posts posted by users
@@ -23,20 +24,6 @@ class PostBox extends React.Component{
 
     render(){
 
-        const actions = [
-            <RaisedButton
-              label="Cancel"
-              backgroundColor='#F44336'
-              onClick={this.handleClosePost}
-            />,
-            <RaisedButton
-              label="Post"
-              backgroundColor="#a4c639"
-              keyboardFocused={true}
-              onClick={function(){}} //TODO: set onClick Listener
-            />,
-          ];
-
         return (
             <section className='PostBox'>
                 <div className='AddPostArea'>
@@ -49,7 +36,6 @@ class PostBox extends React.Component{
                 />
                 <Dialog
                     title={<h1>Add Post</h1>}
-                    actions={actions}
                     modal={false}
                     open={this.state.addPostOpen}
                     onRequestClose={this.handleClose}
@@ -57,7 +43,7 @@ class PostBox extends React.Component{
                     titleClassName='dialog-title'
                     actionsContainerClassName='dialog-action'
                 >
-                    <AddPost/>
+                    <AddPost close={this.handleClosePost} open={this.handleOpenPost}/>
                 </Dialog>
                 </div>
                 <div className='PostsArea'>
@@ -72,4 +58,10 @@ class PostBox extends React.Component{
     }
 }
 
-export default PostBox;
+function mapStateToProps(state){
+    return{
+      posts: state.posts||[]            //it will create a prop property containing all posts stored in store 
+    }                                   //in case of error or state.props not defined it will  set a blank array
+  }
+
+export default connect(mapStateToProps)(PostBox);

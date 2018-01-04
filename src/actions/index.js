@@ -13,7 +13,7 @@ export const DOWN_COMMENT_RATE = 'DOWN_COMMENT_RATE'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 
 //POST ACTION CREATERS
-export function addPost(title, body, author, category){
+export function addPost(title, author, body, category){
     return{
         type: ADD_POST,
         title,

@@ -34,8 +34,6 @@ const categories=['All','react', 'javascript', 'angular', 'udacity'];
 
 class App extends Component {
   render() {
-
-    console.log(this.props);
     return (
       <div>
       <Header/>
@@ -43,7 +41,7 @@ class App extends Component {
         <div>
           <Cover/>
           <AppBarComponents categories={categories}/>
-          <PostBox posts={posts}/>
+          <PostBox/>
         </div>
       )} />
       <Route path='/post' component={ Poster }/>
@@ -52,10 +50,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state){
-  return{
-    posts: state.posts            //it will create a prop property containing all posts stored in store 
-  }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;
