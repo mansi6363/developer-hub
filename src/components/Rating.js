@@ -14,9 +14,9 @@ const style={
 function rating(props){
     return (
         <div className='rating-section'>
-            <div className='rating-icon'><Up/></div>
+            <div className='rating-icon' onClick={props.up}><Up/></div>
                 <Paper style={style.paper}>{props.voteScore}</Paper>        
-            <div className='rating-icon'><Down/></div> 
+            <div className='rating-icon' onClick={props.down}><Down/></div> 
         </div>
     );
 }

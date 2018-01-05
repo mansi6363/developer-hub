@@ -8,6 +8,10 @@ body{
   background-color: #f7f7f7;
 }
 
+.inline-block{
+  display: inline-block;
+}
+
 /*adding style for header */
 header {
   box-shadow: 0 1px 20px rgba(46, 61, 73, .2);
@@ -227,6 +231,13 @@ text-decoration: none;
   margin-right:15px;
   margin-top: 5px;
   display: inline-block;
+}
+
+.post-edit-options{
+  text-align: right;
+  vertical-align: middle;
+  opacity: 0.3;
+
 }
 
 /*comments*/

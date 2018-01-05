@@ -35,10 +35,10 @@ class PostBox extends React.Component{
                     icon={<ContentAdd />}
                 />
                 <Dialog
-                    title={<h1>Add Post</h1>}
+                    title={<h1>Your Post</h1>}
                     modal={false}
                     open={this.state.addPostOpen}
-                    onRequestClose={this.handleClose}
+                    onRequestClose={this.handleClosePost}
                     bodyClassName='dialog'
                     titleClassName='dialog-title'
                     actionsContainerClassName='dialog-action'
@@ -49,7 +49,7 @@ class PostBox extends React.Component{
                 <div className='PostsArea'>
                     {this.props.posts.map((post)=>{
                         return (
-                        <PostCard post={post} key={post.id} link={true}/>
+                        <PostCard post={post} key={post.id}/>
                     );})}
                 
                 </div>

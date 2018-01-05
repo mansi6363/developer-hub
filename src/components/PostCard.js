@@ -1,45 +1,108 @@
 import React from 'react';
 import Rating from './Rating';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom';
+import {upPostRate, downPostRate, deletePost} from '../actions';
+import { connect } from 'react-redux';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import DeleteIcon from 'material-ui/svg-icons/action/delete'
+import  AddPost  from './AddPost';
+import Dialog from 'material-ui/Dialog';
 
-function postCard(props){
-    return (
-    <div className='post-outer'>
-        <div className='post-card'>
-            <Card>
-                <CardHeader
-                    title= {
-                        <h1 className='post-title'>
-                            {props.link?
-                                <Link to={{
-                                    pathname:'/post',
-                                    state:{post:props.post}
-                                }}>
-                                    {props.post.title}
-                                </Link>:
-                                props.post.title
+class PostCard extends React.Component{
+
+    state={
+        editPostOpen:false,
+     
+    }
+
+    upVote = ()=>{
+        this.props.dispatch(upPostRate(this.props.post.id));
+    }
+
+    downVote = ()=>{
+        this.props.dispatch(downPostRate(this.props.post.id));
+    }
+
+    handleDeletePost = ()=>{
+        this.props.dispatch(deletePost(this.props.post.id));       
+        if(this.props.location.pathname==='/post') 
+            this.props.history.push('/');
+    }
+
+
+    handleOpenEditPost = () => {
+        this.setState({editPostOpen: true});
+    };
+    
+
+    handleCloseEditPost = () => {
+        this.setState({editPostOpen: false});
+    };
+
+
+    render(){
+        console.log(this.props);
+        return (
+            <div className='post-outer'>
+                <Dialog
+                    title={<h1>Edit Post</h1>}
+                    modal={false}
+                    open={this.state.editPostOpen}
+                    onRequestClose={this.handleCloseEditPost}
+                    bodyClassName='dialog'
+                    titleClassName='dialog-title'
+                    actionsContainerClassName='dialog-action'
+                >
+                    <AddPost 
+                        close={this.handleCloseEditPost} 
+                        open={this.handleOpenEditPost}
+                        post={this.props.post||false}
+                        />
+                </Dialog>
+                <div className='post-card'>
+                    <Card>
+                        <CardHeader
+                            title= {
+                                <div>
+                                    <h1 className='post-title'>
+                                            {!this.props.poster?
+                                                <Link to={{
+                                                    pathname:'/post',
+                                                    state:{postID:this.props.post.id}
+                                                }}>
+                                                    {this.props.post.title}
+                                                </Link>:
+                                                this.props.post.title
+                                            }
+                                    </h1>
+                                </div>   
                             }
-                        </h1>   
-                    }
-                    subtitle={ 
-                        <div>
-                            <div className='post-subtitle'>{new Date(props.post.timestamp).toGMTString()}</div> 
-                            <div className='post-subtitle'>{`Author: ${props.post.author}`}</div>
-                        </div>
-                    }
-
-                />
-                <CardText>
-                    <div>
-                        {props.post.body}
-                    </div>
-                    <Rating voteScore={props.post.voteScore}/>
-                </CardText>
-            </Card>
-        </div>
-    </div>
-    );
+                            subtitle={ 
+                                <div>
+                                    <div className='post-subtitle'>{new Date(this.props.post.timestamp).toGMTString()}</div> 
+                                    <div className='post-subtitle'>{`Author: ${this.props.post.author}`}</div>
+                                </div>
+                            }
+        
+                        />
+                        <CardText>
+                            <div>
+                            <div className='post-edit-options'>
+                            <EditIcon onClick={this.handleOpenEditPost}/>
+                            <DeleteIcon onClick={this.handleDeletePost}/>
+                            </div>
+                                {this.props.post.body}
+                            </div>
+                            <Rating voteScore={this.props.post.voteScore} up={this.upVote} down={this.downVote}/>
+                        </CardText>
+                    </Card>
+                </div>
+            </div>
+            );
+        }
 }
 
-export default postCard;
+    
+
+export default connect()(withRouter(PostCard));

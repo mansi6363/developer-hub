@@ -4,9 +4,15 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import { addPost } from '../actions' 
+import { addPost, editPost } from '../actions' 
 
 const categories=['react', 'javascript', 'angular', 'udacity'];
+
+//This class provide add post modal in page
+//NOTE:-
+//unlike its name it can be also used to Edit post
+//if you have passes post object as a prop it will act in edit mode
+//else it will act in add post mode
 
 class AddPost extends React.Component{
 
@@ -23,8 +29,15 @@ class AddPost extends React.Component{
         category:null,
         author:'',
         title:'',
-        body:''
+        body:'',
+        editMode: false
     }
+
+    //this method will  change state to edit mode
+    setStateToEditMode = ()=>{
+        this.setState({...this.props.post, editMode: true});
+    }
+
 
     addPost =()=>{
         //extracting data
@@ -42,6 +55,18 @@ class AddPost extends React.Component{
     }
 
 
+    editPost= ()=>{
+        console.log('edit post started');
+        //extracting data
+        const {id, category, author, title, body} = this.state;
+
+        //checking data
+        if(id && category && author && title && body){
+            this.props.editPostInStore(id, title, author, body, category );
+            this.props.close();
+        }
+    }
+
     handleCategoryChange = (event, index, value) => this.setState({category:value});
 
     handleAuthorChange = (event, value) => this.setState({author:value});
@@ -49,6 +74,12 @@ class AddPost extends React.Component{
     handleTitleChange = (event, value) => this.setState({title:value});
 
     handleBodyChange = (event, value) => this.setState({body:value});
+
+    componentWillMount(){
+        if(this.props.post&&!this.state.editMode){
+            this.setStateToEditMode();
+        }
+    }
 
     render(){
         return(
@@ -98,7 +129,7 @@ class AddPost extends React.Component{
                     label="Post"
                     backgroundColor="#a4c639"
                     keyboardFocused={true}
-                    onClick={this.addPost} 
+                    onClick={this.state.editMode?this.editPost:this.addPost} 
                 />
             </div>   
         );
@@ -113,14 +144,19 @@ function mapDispatchToProps(dispatch, props){
             author,
             body,
             category
+        ))),
+        editPostInStore: (id, title, author, body, category)=>(dispatch(editPost(
+            id||null,
+            title||null,
+            body||null,
+            author||null,
+            category||null
         )))
     }
 }
 
 function mapStateToProps(){
-    return{
-
-    }
+    return{}
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(AddPost);

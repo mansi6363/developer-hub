@@ -1,21 +1,34 @@
 import React from 'react'
 import PostCard from './PostCard'
 import Comments from './Comments'
+import { connect } from 'react-redux'
 
 class Poster extends React.Component{
 
-    state={
-        post:this.props.location.state.post
-    }
+    
+    postID=this.props.location.state.postID
 
     render(){
         return(
-            <div>
-                <PostCard post={this.state.post}/>    
-                <Comments postID={this.state.post.id}/>
-            </div>
+            this.props.posts.map(post=>{
+                if(post.id===this.postID){
+                    return(
+                        <div key={post.id}>
+                            <PostCard post={post} poster={true}/>    
+                            <Comments postID={post.id}/>
+                        </div>
+                    )
+                }
+                return null;
+            })
         );
     };
 }
 
-export default Poster;
+function mapStateToProps(state){
+    return{
+        posts: state.posts||[]
+    }
+}
+
+export default connect(mapStateToProps)(Poster);
