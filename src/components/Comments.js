@@ -7,6 +7,8 @@ import Paper from 'material-ui/Paper';
 import Rating from './Rating'
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import Dialog from 'material-ui/Dialog';
+import AddComment from './AddComment'
 
 const comments=[
     {
@@ -45,7 +47,8 @@ class Comments extends React.Component{
 
     state= {
         comments:[],
-        loaded:false
+        loaded:false,
+        addCommentDialog:true
     }
 
     componentWillMount(){
@@ -59,6 +62,14 @@ class Comments extends React.Component{
         });
     }
 
+    handleAddCommentOpen= ()=>{
+        this.setState({addCommentDialog:true});
+    }
+
+    handleAddCommentClose= ()=>{
+        this.setState({addCommentDialog:false});
+    }
+
     render(){
         return(
             <div>
@@ -68,8 +79,24 @@ class Comments extends React.Component{
                         labelPosition="after"
                         primary={true}
                         icon={<ContentAdd />}
+                        onClick={this.handleAddCommentOpen}
                     />
                 </div>
+                <Dialog
+                    title='Add Comment'
+                    modal={false}
+                    open={this.state.addCommentDialog}
+                    onRequestClose={this.handleAddCommentClose}
+                    bodyClassName='dialog'
+                    titleClassName='dialog-title'
+                >
+                    <AddComment 
+                        open={this.handleAddCommentOpen} 
+                        close={this.handleAddCommentClose} 
+                        parentID={this.props.postID}
+                    />
+
+                </Dialog>
                 <Paper className='comments-section' zDepth={3}>
                     <List>
                         <Subheader><h2>Comments</h2></Subheader>

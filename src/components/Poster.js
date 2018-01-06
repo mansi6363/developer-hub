@@ -3,6 +3,7 @@ import PostCard from './PostCard'
 import Comments from './Comments'
 import { connect } from 'react-redux'
 
+
 class Poster extends React.Component{
 
     
