@@ -15,9 +15,6 @@ class AddComment extends React.Component{
     style={
         WhiteFont:{
             color:'#FFFFFF'
-        },
-        menuStyle:{
-            backgroundColor:'rgb(0, 188, 212)'
         }
     }
 
