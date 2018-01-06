@@ -1,18 +1,17 @@
-//IMPORTING ACTIONS RELATED TO POST
+//IMPORTING ACTIONs
 import {
     ADD_POST,
     EDIT_POST,
     DELETE_POST,
     UP_POST_RATE,
-    DOWN_POST_RATE
-} from '../actions/index'
+    DOWN_POST_RATE,
+} from '../actions/index';
 
-const initialPostState = {
-    posts: [],      //keep all the post stored
-    nextPostID:1    //keep account of id of new post
-}
+//importing initaial state from index
+import { initialState } from './initialState';
 
-function postReducer(state=initialPostState, action){
+
+function postReducer(state=initialState, action){
 
     switch(action.type){
         case ADD_POST:      // add post action
@@ -44,7 +43,7 @@ function postReducer(state=initialPostState, action){
                         body: action.body,          //body will change acc to new i/p
                         category: action.category,  //category will change acc to new i/p
                         voteScore: post.voteScore,  //votescore will not change 
-                        deleted: false              //post deleted will remain false
+                        deleted: false,              //post deleted will remain false
                     }
                 }),
             }
@@ -83,6 +82,5 @@ function postReducer(state=initialPostState, action){
         
     }
 }
-
 
 export default postReducer;
