@@ -7,8 +7,10 @@ import {
     EDIT_COMMENT
 } from '../actions/index'
 
-//importing initial state
-import { initialState } from './initialState';
+export const initialState = {
+    comments:[],     //keep tracts of all stored comment
+    nextCommentID:1
+}
 
 function commentReducer(state=initialState, action){
 
@@ -29,7 +31,7 @@ function commentReducer(state=initialState, action){
                         parentDeleted: false
                     }
                 ],
-                nextCommentID: nextCommentID +1     //increasing nextCommentPost
+                nextCommentID: state.nextCommentID +1     //increasing nextCommentPost
             }
         case EDIT_COMMENT:
             return{

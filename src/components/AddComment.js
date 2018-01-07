@@ -2,6 +2,7 @@ import React from 'react'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
+import {addComment} from '../actions/index'
 
 
 //This class provide add comment modal in page
@@ -39,7 +40,9 @@ class AddComment extends React.Component{
 
         //checking entries
         if(parentid && author && body){
-            //add comment
+            //adding comment
+            this.props.addComment(parentid, body, author);
+            this.props.close();
         }
         else{
             return;     //error condition due to insuffiecient data
@@ -71,6 +74,7 @@ class AddComment extends React.Component{
     }
 
     render(){
+        console.log(this.props);
         return(
             <div>
                 <TextField
@@ -106,5 +110,16 @@ class AddComment extends React.Component{
     }
 }
 
+function mapDispatchToProps(dispatch){
+    return{
+        addComment: (parentID, body, author)=>{
+            dispatch(addComment(
+                parentID,
+                body,
+                author
+            ));
+        }
+    }
+}
 
-export default AddComment;
+export default connect(undefined, mapDispatchToProps)(AddComment);

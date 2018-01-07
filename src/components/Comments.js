@@ -8,46 +8,15 @@ import Rating from './Rating'
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
-import AddComment from './AddComment'
+import AddComment from './AddComment';
+import { connect } from 'react-redux'
 
-const comments=[
-    {
-        id:1,
-        parentId:1,
-        timestamp:1514580193247,
-        body:'hell yeah!!',
-        author:'Anyone',
-        voteScore:2,
-        deleted:false,
-        parentDeleted:false
-    },
-    {
-        id:2,
-        parentId:1,
-        timestamp:1514581193247,
-        body:'hmm i m kinda angular fan',
-        author:'Someone',
-        voteScore:1,
-        deleted:false,
-        parentDeleted:false
-    },
-    {
-        id:3,
-        parentId:2,
-        timestamp:151480293247,
-        body:'hmm',
-        author:'Anyone',
-        voteScore:2,
-        deleted:false,
-        parentDeleted:false
-    }
-];
 
 class Comments extends React.Component{
 
     state= {
         comments:[],
-        loaded:false,
+        loaded:true,
         addCommentDialog:true
     }
 
@@ -57,8 +26,15 @@ class Comments extends React.Component{
 
     componentDidMount(){
         this.setState({
-            comments:comments.filter((comment)=>(comment.parentId === this.props.postID)),
-            loaded:true
+            comments:this.props.comments.filter((comment)=>(comment.parentID === this.props.postID))||[],
+            loaded: true
+        });
+    }
+
+    componentWillReceiveProps(props){
+        this.setState({
+            comments:props.comments.filter((comment)=>(comment.parentID === props.postID)),
+            loaded: true
         });
     }
 
@@ -132,4 +108,10 @@ class Comments extends React.Component{
     }
 }
 
-export default Comments;
+function mapStateToProps(state){
+    return{
+        comments: state.commentReducer.comments||[]
+    }
+}
+
+export default connect(mapStateToProps)(Comments);

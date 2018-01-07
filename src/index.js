@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import registerServiceWorker from './registerServiceWorker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {createStore} from 'redux'
-import  reducer from './reducers/postReducer'
+import  reducer from './reducers/index'
 import { Provider } from 'react-redux'
 
 const store = createStore(

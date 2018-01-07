@@ -23,7 +23,6 @@ class PostBox extends React.Component{
       };
 
     render(){
-
         return (
             <section className='PostBox'>
                 <div className='AddPostArea'>
@@ -60,7 +59,7 @@ class PostBox extends React.Component{
 
 function mapStateToProps(state){
     return{
-      posts: state.posts||[]            //it will create a prop property containing all posts stored in store 
+      posts: state.postReducer.posts||[]            //it will create a prop property containing all posts stored in store 
     }                                   //in case of error or state.props not defined it will  set a blank array
   }
 

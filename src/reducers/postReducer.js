@@ -7,8 +7,10 @@ import {
     DOWN_POST_RATE,
 } from '../actions/index';
 
-//importing initaial state from index
-import { initialState } from './initialState';
+export const initialState = {
+    posts: [],      //keep all the post stored
+    nextPostID:1,    //keep account of id of new post
+}
 
 
 function postReducer(state=initialState, action){

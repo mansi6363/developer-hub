@@ -28,7 +28,7 @@ class Poster extends React.Component{
 
 function mapStateToProps(state){
     return{
-        posts: state.posts||[]
+        posts: state.postReducer.posts||[]
     }
 }
 
