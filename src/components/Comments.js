@@ -10,6 +10,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import AddComment from './AddComment';
 import { connect } from 'react-redux'
+import { upCommentRate, downCommentRate } from '../actions/index'
 
 
 class Comments extends React.Component{
@@ -18,6 +19,14 @@ class Comments extends React.Component{
         comments:[],
         loaded:true,
         addCommentDialog:true
+    }
+
+    upVote=(id)=>{
+        return ()=>this.props.dispatch(upCommentRate(id))
+    }
+
+    downVote=(id)=>{
+        return ()=>this.props.dispatch(downCommentRate(id))
     }
 
     componentWillMount(){
@@ -88,7 +97,11 @@ class Comments extends React.Component{
                                                 <div className='comment'>
                                                     {comment.body}
                                                 </div>
-                                                <Rating voteScore={comment.voteScore}/>
+                                                <Rating 
+                                                    voteScore={comment.voteScore}
+                                                    up={this.upVote(comment.id)}
+                                                    down={this.downVote(comment.id)}
+                                                />
                                             </div>
                                         }
                                         secondaryText={
