@@ -10,7 +10,9 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import AddComment from './AddComment';
 import { connect } from 'react-redux'
-import { upCommentRate, downCommentRate } from '../actions/index'
+import { upCommentRate, downCommentRate, editComment, deleteComment } from '../actions/index'
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
+import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
 
 class Comments extends React.Component{
@@ -18,7 +20,8 @@ class Comments extends React.Component{
     state= {
         comments:[],
         loaded:true,
-        addCommentDialog:true
+        addCommentDialog:false,
+        commentToEdit: null
     }
 
     upVote=(id)=>{
@@ -27,6 +30,17 @@ class Comments extends React.Component{
 
     downVote=(id)=>{
         return ()=>this.props.dispatch(downCommentRate(id))
+    }
+
+    deletePost= (id)=>{
+        return ()=>this.props.dispatch(deleteComment(id))
+    }
+
+    editPost=(comment)=>{
+        return ()=> (this.setState({
+            addCommentDialog:true,
+            commentToEdit: comment
+        }))
     }
 
     componentWillMount(){
@@ -52,7 +66,7 @@ class Comments extends React.Component{
     }
 
     handleAddCommentClose= ()=>{
-        this.setState({addCommentDialog:false});
+        this.setState({addCommentDialog:false, commentToEdit: false});
     }
 
     render(){
@@ -79,6 +93,7 @@ class Comments extends React.Component{
                         open={this.handleAddCommentOpen} 
                         close={this.handleAddCommentClose} 
                         parentID={this.props.postID}
+                        comment={this.state.commentToEdit}
                     />
 
                 </Dialog>
@@ -94,6 +109,10 @@ class Comments extends React.Component{
                                                 <h3 className='comment-author'>
                                                     {comment.author}
                                                 </h3>
+                                                <div className='post-edit-options'>
+                                                    <EditIcon onClick={this.editPost(comment)}/>
+                                                    <DeleteIcon onClick={this.deletePost(comment.id)}/>
+                                                </div>
                                                 <div className='comment'>
                                                     {comment.body}
                                                 </div>

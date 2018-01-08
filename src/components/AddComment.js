@@ -2,7 +2,7 @@ import React from 'react'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import {addComment} from '../actions/index'
+import {addComment, editComment} from '../actions/index'
 
 
 //This class provide add comment modal in page
@@ -58,7 +58,9 @@ class AddComment extends React.Component{
 
         //checking data
         if(parentid && id && author && body){
-            //edit comment
+            //editing comment
+            this.props.editComment(id, body, author);
+            this.props.close();
         }
     }
 
@@ -115,6 +117,13 @@ function mapDispatchToProps(dispatch){
         addComment: (parentID, body, author)=>{
             dispatch(addComment(
                 parentID,
+                body,
+                author
+            ));
+        },
+        editComment:(id, body, author)=>{
+            dispatch(editComment(
+                id,
                 body,
                 author
             ));
