@@ -13,7 +13,8 @@ import { connect } from 'react-redux'
 import { upCommentRate, downCommentRate, editComment, deleteComment } from '../actions/index'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
-
+import {getComments, deleteCommentFromServer, voteServerComment} from '../utils/API'
+import { updateComments} from '../actions'
 
 class Comments extends React.Component{
 
@@ -25,18 +26,32 @@ class Comments extends React.Component{
     }
 
     upVote=(id)=>{
-        return ()=>this.props.dispatch(upCommentRate(id))
+        return ()=>{
+            voteServerComment(id, 'upVote').then(()=>
+            this.props.dispatch(upCommentRate(id))
+            );
+        }
     }
 
     downVote=(id)=>{
-        return ()=>this.props.dispatch(downCommentRate(id))
+        return ()=>{
+            voteServerComment(id, 'downVote').then(()=>
+            this.props.dispatch(downCommentRate(id))
+            );
+        }
     }
 
-    deletePost= (id)=>{
-        return ()=>this.props.dispatch(deleteComment(id))
+    //will delete comment
+    deleteComment= (id)=>{
+        return ()=>{
+            deleteCommentFromServer(id).then(()=>
+            this.props.dispatch(deleteComment(id))
+            );
+        }
     }
 
-    editPost=(comment)=>{
+    //will edit comment
+    editComment=(comment)=>{
         return ()=> (this.setState({
             addCommentDialog:true,
             commentToEdit: comment
@@ -45,18 +60,21 @@ class Comments extends React.Component{
 
     componentWillMount(){
         ListItem.defaultProps.disabled=true;
+        getComments(this.props.postID).then(comments=>{
+            this.props.dispatch(updateComments(comments)) 
+        });
     }
 
     componentDidMount(){
         this.setState({
-            comments:this.props.comments.filter((comment)=>(comment.parentID === this.props.postID))||[],
+            comments:this.props.comments.filter((comment)=>(comment.parentId === this.props.postID))||[],
             loaded: true
         });
     }
 
     componentWillReceiveProps(props){
         this.setState({
-            comments:props.comments.filter((comment)=>(comment.parentID === props.postID)),
+            comments:props.comments.filter((comment)=>(comment.parentId === props.postID)),
             loaded: true
         });
     }
@@ -110,8 +128,8 @@ class Comments extends React.Component{
                                                     {comment.author}
                                                 </h3>
                                                 <div className='post-edit-options'>
-                                                    <EditIcon onClick={this.editPost(comment)}/>
-                                                    <DeleteIcon onClick={this.deletePost(comment.id)}/>
+                                                    <EditIcon onClick={this.editComment(comment)}/>
+                                                    <DeleteIcon onClick={this.deleteComment(comment.id)}/>
                                                 </div>
                                                 <div className='comment'>
                                                     {comment.body}

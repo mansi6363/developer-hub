@@ -4,12 +4,12 @@ import {
     DELETE_COMMENT,
     UP_COMMENT_RATE,
     DOWN_COMMENT_RATE,
-    EDIT_COMMENT
+    EDIT_COMMENT,
+    UPDATE_COMMENTS
 } from '../actions/index'
 
 export const initialState = {
     comments:[],     //keep tracts of all stored comment
-    nextCommentID:1
 }
 
 function commentReducer(state=initialState, action){
@@ -21,17 +21,16 @@ function commentReducer(state=initialState, action){
                 comments:[
                     ...state.comments,
                     {
-                        id: state.nextCommentID,    //id will be taken from nextCommentID
-                        parentID: action.parentID,  //parentID is id of the post
-                        timestamp: Date.now(),      //will take current timestamp
+                        id: action.id,    //id will be taken from nextCommentID
+                        parentId: action.parentId,  //parentID is id of the post
+                        timestamp: action.timestamp,      //will take current timestamp
                         body: action.body,          //will store body of comment
                         author: action.author,      //will store author of comment
                         voteScore: 1,               //default value of vote is 1
                         deleted: false,
                         parentDeleted: false
                     }
-                ],
-                nextCommentID: state.nextCommentID +1     //increasing nextCommentPost
+                ]
             }
         case EDIT_COMMENT:
             return{
@@ -42,11 +41,11 @@ function commentReducer(state=initialState, action){
                     else{   
                         return{                     //else will retrun edited version of our comment
                             id: comment.id,
-                            parentID: comment.parentID,
-                            timestamp: Date.now(),
+                            parentId: comment.parentId,
+                            timestamp: comment.timestamp,
                             body: action.body,
-                            author: action.author,
-                            voteScore: action.voteScore,
+                            author: comment.author,
+                            voteScore: comment.voteScore,
                             deleted: false,
                             parentDeleted: false
                         }
@@ -85,6 +84,11 @@ function commentReducer(state=initialState, action){
                         }
                     }
                 })
+            }
+        case UPDATE_COMMENTS:
+            return{
+                ...state,
+                comments: action.comments
             }
         default:
             return state;        

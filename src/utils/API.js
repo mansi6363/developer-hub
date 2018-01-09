@@ -48,10 +48,52 @@ export const votePost = (postId, option) =>(
   })
 );
 
-//edit Post
+//delete Post
 export const deletePostOnline = postId => (
      fetch(`${api}/posts/${postId}`, {
       method: "DELETE",
       headers
+    })
+);
+
+//comments calls
+//get comments of a post
+export const getComments = postID =>
+  fetch(`${api}/posts/${postID}/comments`, { headers }).then(
+      data =>data.json()
+);
+
+//add comment
+export const uploadComment = comment => (
+      fetch(`${api}/comments/`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(comment)
+    })
+);
+
+//delete comment
+export const deleteCommentFromServer = commentId => (
+      fetch(`${api}/comments/${commentId}`, {
+      method: "DELETE",
+      headers
+    })
+);
+
+//editComment
+export const editServerComment = (comment, commentId) => {
+    return fetch(`${api}/comments/${commentId}`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify(comment)
+    }).then(data => data.json());
+  };
+
+//upvote and down vote comments
+export const voteServerComment = (commentId, option) => (
+     fetch(`${api}/comments/${commentId}`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({option})
     })
 );

@@ -13,8 +13,7 @@ import {votePost, deletePostOnline} from '../utils/API'
 class PostCard extends React.Component{
 
     state={
-        editPostOpen:false,
-     
+        editPostOpen:false
     }
 
     upVote = ()=>{

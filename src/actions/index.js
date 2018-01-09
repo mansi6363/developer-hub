@@ -12,6 +12,7 @@ export const DELETE_COMMENT = 'DELETE_COMMENT'
 export const UP_COMMENT_RATE = 'UP_COMMENT_RATE'
 export const DOWN_COMMENT_RATE = 'DOWN_COMMENT_RATE'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const UPDATE_COMMENTS = 'UPDATE_COMMENTS'
 
 //POST ACTION CREATERS
 export function addPost(id, timestamp, title, author, body, category){
@@ -64,21 +65,22 @@ export function updatePosts(posts){
 }
 
 //COMMENT ACTION CREATERS
-export function addComment(parentID, body, author){
+export function addComment(id, parentId, timestamp, body, author){
     return{
         type: ADD_COMMENT,
+        id,
+        timestamp,
         body,
         author,
-        parentID
+        parentId
     }
 }
 
-export function editComment(id, body, author){
+export function editComment(id, body){
     return{
         type: EDIT_COMMENT,
         id,
-        body,
-        author
+        body
     }
 }
 
@@ -100,5 +102,12 @@ export function downCommentRate(id){
     return{
         type: DOWN_COMMENT_RATE,
         id
+    }
+}
+
+export function updateComments(comments){
+    return{
+        type: UPDATE_COMMENTS,
+        comments
     }
 }

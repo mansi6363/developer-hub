@@ -3,7 +3,8 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
 import {addComment, editComment} from '../actions/index'
-
+import uuidv1 from "uuid/v1";
+import { uploadComment, editServerComment } from '../utils/API'
 
 //This class provide add comment modal in page
 //NOTE:-
@@ -20,7 +21,7 @@ class AddComment extends React.Component{
     }
 
     state={
-        parentid: this.props.parentID,
+        parentId: this.props.parentID,
         author:'',
         body:'',
         editMode: false
@@ -36,13 +37,21 @@ class AddComment extends React.Component{
 
         console.log('adding comment');
         //extracting data
-        const {parentid ,author, body} = this.state;
+        const {parentId ,author, body} = this.state;
+        
+        //genrating unique id
+        const id = uuidv1();
+
+        //genrating timestamp
+        const timestamp = Date.now();
 
         //checking entries
-        if(parentid && author && body){
+        if(parentId && author && body){
             //adding comment
-            this.props.addComment(parentid, body, author);
+            uploadComment({id, timestamp, body, author, parentId}).then(()=>{
+            this.props.addComment(id, parentId, timestamp, body, author);
             this.props.close();
+            });
         }
         else{
             return;     //error condition due to insuffiecient data
@@ -54,13 +63,18 @@ class AddComment extends React.Component{
     editComment= ()=>{
         console.log('edit comment started');
         //extracting data
-        const {id, parentid, author, body} = this.state;
+        const {id, author, body} = this.state;
+
+        //genrating new timestamp
+        const timestamp=Date.now();
 
         //checking data
-        if(parentid && id && author && body){
+        if( id  && body){
             //editing comment
-            this.props.editComment(id, body, author);
+            editServerComment({timestamp, body}, id).then(()=>{
+            this.props.editComment(id, body);
             this.props.close();
+            });
         }
     }
 
@@ -85,6 +99,7 @@ class AddComment extends React.Component{
                     floatingLabelStyle={this.style.WhiteFont}
                     value={this.state.author}
                     onChange={this.handleAuthorChange}
+                    disabled={this.state.editMode?true:false}
                 /><br />
                 <TextField
                     floatingLabelText="Type your comment here..."
@@ -114,18 +129,19 @@ class AddComment extends React.Component{
 
 function mapDispatchToProps(dispatch){
     return{
-        addComment: (parentID, body, author)=>{
+        addComment: (id, parentID, timestamp, body, author)=>{
             dispatch(addComment(
+                id,
                 parentID,
+                timestamp,
                 body,
                 author
             ));
         },
-        editComment:(id, body, author)=>{
+        editComment:(id, body)=>{
             dispatch(editComment(
                 id,
-                body,
-                author
+                body
             ));
         }
     }
