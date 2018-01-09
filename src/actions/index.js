@@ -14,6 +14,9 @@ export const DOWN_COMMENT_RATE = 'DOWN_COMMENT_RATE'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const UPDATE_COMMENTS = 'UPDATE_COMMENTS'
 
+//ACTIONS RELATED TO CATEGORY
+export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY'
+
 //POST ACTION CREATERS
 export function addPost(id, timestamp, title, author, body, category){
     return{
@@ -109,5 +112,13 @@ export function updateComments(comments){
     return{
         type: UPDATE_COMMENTS,
         comments
+    }
+}
+
+//CATEGORY ACTION CREATOR
+export function setActiveCategory(category){
+    return{
+        type: SET_ACTIVE_CATEGORY,
+        category
     }
 }
