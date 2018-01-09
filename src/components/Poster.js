@@ -2,12 +2,23 @@ import React from 'react'
 import PostCard from './PostCard'
 import Comments from './Comments'
 import { connect } from 'react-redux'
+import {updatePosts} from '../actions'
+import {getAllPost} from '../utils/API'
 
 
 class Poster extends React.Component{
 
     
-    postID=this.props.location.state.postID
+    postID=this.props.location.state.postID;
+
+    componentWillMount(){
+        if(this.props.posts.length!==0)
+            return;
+        
+        getAllPost().then(posts=>{
+            this.props.dispatch(updatePosts(posts))
+        });
+     }
 
     render(){
         return(

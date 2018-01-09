@@ -4,7 +4,9 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import { addPost, editPost } from '../actions' 
+import { addPost, editPost } from '../actions'; 
+import uuidv1 from "uuid/v1";
+import {sendPost, sendEditedPost} from '../utils/API'
 
 const categories=['react', 'javascript', 'angular', 'udacity'];
 
@@ -42,11 +44,19 @@ class AddPost extends React.Component{
     addPost =()=>{
         //extracting data
         const {category, author, title, body} = this.state;
+        
+        //genrating id
+        const id = uuidv1();
+
+        //genrating time
+        const timestamp = Date.now();
 
         //checking entries
         if(categories && author && title && body){
-            this.props.addPostToStore(title, author, body, category);
+            sendPost({id, timestamp, title, author, body, category}).then(()=>{
+            this.props.addPostToStore(id, timestamp, title, author, body, category);
             this.props.close();
+            })
         }
         else{
             return;     //error condition due to insuffiecient data
@@ -58,12 +68,14 @@ class AddPost extends React.Component{
     editPost= ()=>{
         console.log('edit post started');
         //extracting data
-        const {id, category, author, title, body} = this.state;
+        const {id, title, body} = this.state;
 
         //checking data
-        if(id && category && author && title && body){
-            this.props.editPostInStore(id, title, author, body, category );
+        if(id  && title && body){
+            sendEditedPost({title, body}, id).then(()=>{
+            this.props.editPostInStore(id, title, body );
             this.props.close();
+            })
         }
     }
 
@@ -90,6 +102,7 @@ class AddPost extends React.Component{
                     menuItemStyle={this.style.menuStyle}
                     value={this.state.category}
                     onChange={this.handleCategoryChange}
+                    disabled = {this.state.editMode?true:false}
                 >
                     {categories.map((category)=>(
                         <MenuItem key={category} value={category} 
@@ -109,6 +122,7 @@ class AddPost extends React.Component{
                     floatingLabelStyle={this.style.WhiteFont}
                     value={this.state.author}
                     onChange={this.handleAuthorChange}
+                    disabled = {this.state.editMode?true:false}
                 /><br />
                 <TextField
                     floatingLabelText="Type your post here..."
@@ -139,18 +153,18 @@ class AddPost extends React.Component{
 function mapDispatchToProps(dispatch, props){
     return{
         ...props,
-        addPostToStore: (title, author, body, category)=> (dispatch(addPost(
+        addPostToStore: (id, timestamp, title, author, body, category)=> (dispatch(addPost(
+            id,
+            timestamp,
             title,
             author,
             body,
             category
         ))),
-        editPostInStore: (id, title, author, body, category)=>(dispatch(editPost(
+        editPostInStore: (id, title, body)=>(dispatch(editPost(
             id||null,
             title||null,
-            body||null,
-            author||null,
-            category||null
+            body||null
         )))
     }
 }

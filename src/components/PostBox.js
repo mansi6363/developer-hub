@@ -5,6 +5,9 @@ import PostCard from './PostCard';
 import Dialog from 'material-ui/Dialog';
 import AddPost from './AddPost'
 import { connect } from 'react-redux'
+import {updatePosts} from '../actions'
+import {getAllPost} from '../utils/API'
+
 
 
 //Post box class renders posts posted by users
@@ -12,6 +15,12 @@ class PostBox extends React.Component{
 
     state={
         addPostOpen:false,
+    }
+
+    componentWillMount(){
+       getAllPost().then(posts=>{
+           this.props.dispatch(updatePosts(posts))
+       })
     }
 
     handleOpenPost = () => {

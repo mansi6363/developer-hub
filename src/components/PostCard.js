@@ -8,6 +8,7 @@ import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import  AddPost  from './AddPost';
 import Dialog from 'material-ui/Dialog';
+import {votePost, deletePostOnline} from '../utils/API'
 
 class PostCard extends React.Component{
 
@@ -17,17 +18,21 @@ class PostCard extends React.Component{
     }
 
     upVote = ()=>{
-        this.props.dispatch(upPostRate(this.props.post.id));
+        votePost(this.props.post.id, 'upVote').then(()=>
+        this.props.dispatch(upPostRate(this.props.post.id)));
     }
 
     downVote = ()=>{
-        this.props.dispatch(downPostRate(this.props.post.id));
+        votePost(this.props.post.id, 'downVote').then(()=>
+        this.props.dispatch(downPostRate(this.props.post.id)));
     }
 
     handleDeletePost = ()=>{
+        deletePostOnline(this.props.post.id).then(()=>{
         this.props.dispatch(deletePost(this.props.post.id));       
         if(this.props.location.pathname==='/post') 
             this.props.history.push('/');
+        })
     }
 
 
