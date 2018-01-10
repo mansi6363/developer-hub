@@ -169,6 +169,14 @@ section {
   font-weight: bold !important;
 }
 
+
+/* sidebar styling */
+.category-links{
+  text-decoration: none;
+  color: black ;
+}
+
+
 /*dialog*/
 
 .dialog-title{

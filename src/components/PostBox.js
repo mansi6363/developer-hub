@@ -6,7 +6,7 @@ import Dialog from 'material-ui/Dialog';
 import AddPost from './AddPost'
 import { connect } from 'react-redux'
 import {updatePosts} from '../actions'
-import {getAllPost} from '../utils/API'
+import {getAllPost, fetchPostsFromCategory} from '../utils/API'
 import sortBy from 'sort-by'
 
 
@@ -20,9 +20,23 @@ class PostBox extends React.Component{
 
     //LOADING DATA FOR COMPONENT
     componentWillMount(){
-       getAllPost().then(posts=>{
-           this.props.dispatch(updatePosts(posts))
-       })
+        console.log(this.props)
+        switch(this.props.categoryMode){
+            case true:
+                const url = window.location.pathname;
+                const catUrl= url.substring(url.lastIndexOf('/')+1);    //will contain category
+                console.log(catUrl);
+                fetchPostsFromCategory(catUrl).then(posts=>{
+                this.props.dispatch(updatePosts(posts))
+                })
+                break;
+            case false:
+                getAllPost().then(posts=>{
+                    this.props.dispatch(updatePosts(posts))
+                })
+                break;
+            default: break;
+            }
     }
 
     //these method will handle add post dialog  
@@ -69,23 +83,9 @@ class PostBox extends React.Component{
                 </Dialog>
                 </div>
                 <div className='PostsArea'>
-                    {posts.map((post)=>{
-                        switch(this.props.activeCategory){
-                            case 'ALL':
-                                return (
-                                    <PostCard post={post} key={post.id}/>
-                                )
-                            default:
-                                if(this.props.activeCategory===post.category){
-                                    return (
-                                        <PostCard post={post} key={post.id}/>
-                                    )   
-                                }
-                                else 
-                                    return null
-                        }
-                        })}
-                
+                {posts.map((post)=>(
+                            <PostCard post={post} key={post.id}/>
+                    ))}                
                 </div>
             </section>
         );
@@ -94,8 +94,7 @@ class PostBox extends React.Component{
 
 function mapStateToProps(state){
     return{
-      posts: state.postReducer.posts||[],            //it will create a prop property containing all posts stored in store 
-      activeCategory: state.categoryReducer.activeCategory||'ALL',
+      posts: state.postReducer.posts||[],     //it will create a prop property containing all posts stored in store 
       sort: state.sortingReducer.sort||0
     }                                   
   }

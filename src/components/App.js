@@ -7,6 +7,7 @@ import PostBox from './PostBox'
 import { Route } from 'react-router-dom'
 import Poster from './Poster'
 
+
 class App extends Component {
   render() {
     return (
@@ -16,9 +17,16 @@ class App extends Component {
         <div>
           <Cover/>
           <AppBarComponents/>
-          <PostBox/>
+          <PostBox categoryMode={false}/>
         </div>
       )} />
+      <Route exact path='/:category' render={()=>(
+        <div>
+          <Cover/>
+          <AppBarComponents categoryDisable={true}/>
+          <PostBox categoryMode={true}/>
+        </div>
+      )}/>
       <Route path='/post' component={ Poster }/>
       </div>
     );

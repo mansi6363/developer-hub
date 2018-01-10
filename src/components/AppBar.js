@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import {getAllCategories} from '../utils/API';
 import {addCategories, setActiveCategory, setSort} from '../actions/index';
 import FlatButton from 'material-ui/FlatButton';
+import { Link } from 'react-router-dom'
 
 class AppBarComponents extends React.Component{
 
@@ -72,7 +73,8 @@ class AppBarComponents extends React.Component{
             <div>
                 <AppBar
                     title="Post"
-                    onLeftIconButtonClick={this.handleToggle}
+                    onLeftIconButtonClick={this.props.categoryDisable?undefined:this.handleToggle}
+                    showMenuIconButton={this.props.categoryDisable?false:true}
                     iconElementRight={<div>
                                         <FlatButton
                                             label="sort"
@@ -99,13 +101,14 @@ class AppBarComponents extends React.Component{
                     onRequestChange={(open) => this.setState({open})}
                 >
                     {this.props.categories.map((category=>(
-                        <MenuItem
-                            onClick={this.handleSelect(category)}
-                            key={category}
-                            disabled={this.props.activeCategory===category?true:false}
-                            >
-                                {category}
+                        <Link to={`/${category}`} className='category-links' key={category}>
+                            <MenuItem
+                                onClick={this.handleSelect(category)}
+                                >
+                                
+                                    {category}                                
                             </MenuItem>
+                        </Link>
                     )))}
                 </Drawer>
             </div>
@@ -115,8 +118,8 @@ class AppBarComponents extends React.Component{
 
 function mapStateToProps(state){
     return{
-        categories: ['ALL', ...state.categoryReducer.categories],
-        activeCategory: state.categoryReducer.activeCategory||'ALL'
+        categories: [...state.categoryReducer.categories],
+        activeCategory: state.categoryReducer.activeCategory
     }
 }
 

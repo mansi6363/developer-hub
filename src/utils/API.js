@@ -21,6 +21,10 @@ export const getAllPost = ()=>(
     )
 )
 
+//fetch post from particular category
+export const fetchPostsFromCategory = category =>
+  fetch(`${api}/${category}/posts`, { headers }).then(data => data.json());
+
 //send post
 export const sendPost = (post)=>(
     fetch(`${api}/posts`, {
