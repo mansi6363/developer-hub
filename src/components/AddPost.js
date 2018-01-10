@@ -50,7 +50,7 @@ class AddPost extends React.Component{
         const timestamp = Date.now();
 
         //checking entries
-        if(categories && author && title && body){
+        if(category && author && title && body){
             sendPost({id, timestamp, title, author, body, category}).then(()=>{
             this.props.addPostToStore(id, timestamp, title, author, body, category);
             this.props.close();
