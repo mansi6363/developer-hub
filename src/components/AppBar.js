@@ -10,7 +10,7 @@ import {addCategories, setActiveCategory, setSort} from '../actions/index';
 import FlatButton from 'material-ui/FlatButton';
 
 class AppBarComponents extends React.Component{
-    
+
     state={
         open:false,
         openSorting:false
@@ -22,11 +22,11 @@ class AppBarComponents extends React.Component{
     //will close side drawer
     handleClose = () => this.setState({open: false});
 
-    //this method will sort post wrt time 
+    //this method will sort post wrt time
     sortByTime = () => {
         this.props.dispatch(setSort(1));
         this.handleSortClose();
-    } 
+    }
 
     //this method will sort post wrt Rating
     sortByRating = () => {
@@ -66,15 +66,15 @@ class AppBarComponents extends React.Component{
             this.props.dispatch(addCategories(categories.map(category=>category.name)))
         });
     }
-    
+
     render(){
         return (
             <div>
                 <AppBar
-                    title="All Post"
+                    title="Post"
                     onLeftIconButtonClick={this.handleToggle}
                     iconElementRight={<div>
-                                        <FlatButton 
+                                        <FlatButton
                                             label="sort"
                                             onClick={this.handleSortClick}
                                         />
@@ -99,13 +99,13 @@ class AppBarComponents extends React.Component{
                     onRequestChange={(open) => this.setState({open})}
                 >
                     {this.props.categories.map((category=>(
-                        <MenuItem 
-                            onClick={this.handleSelect(category)} 
+                        <MenuItem
+                            onClick={this.handleSelect(category)}
                             key={category}
                             disabled={this.props.activeCategory===category?true:false}
                             >
                                 {category}
-                            </MenuItem>      
+                            </MenuItem>
                     )))}
                 </Drawer>
             </div>
@@ -121,4 +121,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(AppBarComponents);
-
