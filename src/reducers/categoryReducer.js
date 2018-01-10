@@ -9,16 +9,20 @@ const initialState = {
 
 //reducer
 function categoryReducer(state=initialState, action){
-    switch(action){
+    switch(action.type){
         case SET_ACTIVE_CATEGORY:
             return{
+                ...state,
                 activeCategory: action.category
             }
         case ADD_CATEGORIES:
             return{
+                ...state,
                 categories: action.categories
             }
         default:
             return state
     }
 }
+
+export default categoryReducer;

@@ -17,7 +17,7 @@ class App extends Component {
       <Route exact path='/' render={()=>(
         <div>
           <Cover/>
-          <AppBarComponents categories={categories}/>
+          <AppBarComponents/>
           <PostBox/>
         </div>
       )} />

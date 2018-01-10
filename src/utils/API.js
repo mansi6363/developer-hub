@@ -97,3 +97,9 @@ export const voteServerComment = (commentId, option) => (
       body: JSON.stringify({option})
     })
 );
+
+//get all categories
+export const getAllCategories = () =>
+  fetch(`${api}/categories`, { headers })
+    .then(data => data.json())
+    .then(data => data.categories);

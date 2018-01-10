@@ -56,9 +56,21 @@ class PostBox extends React.Component{
                 </div>
                 <div className='PostsArea'>
                     {this.props.posts.map((post)=>{
-                        return (
-                        <PostCard post={post} key={post.id}/>
-                    );})}
+                        switch(this.props.activeCategory){
+                            case 'ALL':
+                                return (
+                                    <PostCard post={post} key={post.id}/>
+                                )
+                            default:
+                                if(this.props.activeCategory===post.category){
+                                    return (
+                                        <PostCard post={post} key={post.id}/>
+                                    )   
+                                }
+                                else 
+                                    return null
+                        }
+                        })}
                 
                 </div>
             </section>
@@ -68,8 +80,9 @@ class PostBox extends React.Component{
 
 function mapStateToProps(state){
     return{
-      posts: state.postReducer.posts||[]            //it will create a prop property containing all posts stored in store 
-    }                                   //in case of error or state.props not defined it will  set a blank array
+      posts: state.postReducer.posts||[],            //it will create a prop property containing all posts stored in store 
+      activeCategory: state.categoryReducer.activeCategory||'ALL'
+    }                                   
   }
 
 export default connect(mapStateToProps)(PostBox);
