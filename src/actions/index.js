@@ -18,6 +18,9 @@ export const UPDATE_COMMENTS = 'UPDATE_COMMENTS'
 export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY'
 export const ADD_CATEGORIES = 'ADD_CATEGORIES' 
 
+//ACTION RELATED TO SORTING
+export const SET_SORT = 'SET_SORT' 
+
 //POST ACTION CREATERS
 export function addPost(id, timestamp, title, author, body, category){
     return{
@@ -128,5 +131,13 @@ export function setActiveCategory(category){
     return{
         type: SET_ACTIVE_CATEGORY,
         category
+    }
+}
+
+//SORTING ACTION CREATOR
+export function setSort(sort){
+    return{
+        type: SET_SORT,
+        sort
     }
 }

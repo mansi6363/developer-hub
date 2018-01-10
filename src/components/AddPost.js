@@ -64,7 +64,6 @@ class AddPost extends React.Component{
 
 
     editPost= ()=>{
-        console.log('edit post started');
         //extracting data
         const {id, title, body} = this.state;
 

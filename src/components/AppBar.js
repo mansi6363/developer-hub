@@ -2,19 +2,49 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
 import { connect } from 'react-redux';
 import {getAllCategories} from '../utils/API';
-import {addCategories, setActiveCategory} from '../actions/index'
+import {addCategories, setActiveCategory, setSort} from '../actions/index';
+import FlatButton from 'material-ui/FlatButton';
 
 class AppBarComponents extends React.Component{
     
     state={
-        open:false
+        open:false,
+        openSorting:false
     }
 
     handleToggle = () => this.setState({open: !this.state.open});
 
     handleClose = () => this.setState({open: false});
+
+    sortByTime = () => {
+        this.props.dispatch(setSort(1));
+        this.handleSortClose();
+    } 
+
+    sortByRating = () => {
+        this.props.dispatch(setSort(2));
+        this.handleSortClose();
+    }
+
+    handleSortClick = (event) => {
+        // This prevents ghost click.
+        event.preventDefault();
+
+        this.setState({
+        openSorting: true,
+        anchorEl: event.currentTarget,
+        });
+    }
+
+    handleSortClose = () => {
+        this.setState({
+            openSorting: false,
+          });
+    }
 
     handleSelect = (category) => {
         return ()=>{
@@ -38,8 +68,25 @@ class AppBarComponents extends React.Component{
             <div>
                 <AppBar
                     title="All Post"
-                    iconClassNameRight="muidocs-icon-navigation-expand-more"
                     onLeftIconButtonClick={this.handleToggle}
+                    iconElementRight={<div>
+                                        <FlatButton 
+                                            label="sort"
+                                            onClick={this.handleSortClick}
+                                        />
+                                        <Popover
+                                        open={this.state.openSorting}
+                                        anchorEl={this.state.anchorEl}
+                                        anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                                        targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                                        onRequestClose={this.handleSortClose}
+                                        >
+                                        <Menu>
+                                            <MenuItem primaryText="Sort by Time" onClick={this.sortByTime} />
+                                            <MenuItem primaryText="Sort by Rating" onClick={this.sortByRating}/>
+                                        </Menu>
+                                        </Popover>
+                                    </div>}
                 />
                 <Drawer
                     docked={false}

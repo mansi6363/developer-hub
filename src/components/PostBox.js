@@ -7,6 +7,7 @@ import AddPost from './AddPost'
 import { connect } from 'react-redux'
 import {updatePosts} from '../actions'
 import {getAllPost} from '../utils/API'
+import sortBy from 'sort-by'
 
 
 
@@ -32,6 +33,16 @@ class PostBox extends React.Component{
       };
 
     render(){
+        console.log(this.props.sort);
+        let posts = this.props.posts;
+        switch(this.props.sort){
+            case 1: 
+                posts.sort(sortBy('-timestamp'));
+                break;
+            case 2: 
+                posts.sort(sortBy('-voteScore'));
+                break;
+        }
         return (
             <section className='PostBox'>
                 <div className='AddPostArea'>
@@ -55,7 +66,7 @@ class PostBox extends React.Component{
                 </Dialog>
                 </div>
                 <div className='PostsArea'>
-                    {this.props.posts.map((post)=>{
+                    {posts.map((post)=>{
                         switch(this.props.activeCategory){
                             case 'ALL':
                                 return (
@@ -79,9 +90,11 @@ class PostBox extends React.Component{
 }
 
 function mapStateToProps(state){
+    console.log(state)
     return{
       posts: state.postReducer.posts||[],            //it will create a prop property containing all posts stored in store 
-      activeCategory: state.categoryReducer.activeCategory||'ALL'
+      activeCategory: state.categoryReducer.activeCategory||'ALL',
+      sort: state.sortingReducer.sort||0
     }                                   
   }
 
