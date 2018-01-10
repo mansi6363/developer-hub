@@ -16,16 +16,19 @@ class PostCard extends React.Component{
         editPostOpen:false
     }
 
+    //will upvote post
     upVote = ()=>{
         votePost(this.props.post.id, 'upVote').then(()=>
         this.props.dispatch(upPostRate(this.props.post.id)));
     }
 
+    //will downVote post
     downVote = ()=>{
         votePost(this.props.post.id, 'downVote').then(()=>
         this.props.dispatch(downPostRate(this.props.post.id)));
     }
 
+    //will delete post
     handleDeletePost = ()=>{
         deletePostOnline(this.props.post.id).then(()=>{
         this.props.dispatch(deletePost(this.props.post.id));       
@@ -34,7 +37,7 @@ class PostCard extends React.Component{
         })
     }
 
-
+    //These method will handle edit post dialog
     handleOpenEditPost = () => {
         this.setState({editPostOpen: true});
     };

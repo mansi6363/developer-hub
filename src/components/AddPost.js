@@ -16,6 +16,7 @@ import {sendPost, sendEditedPost} from '../utils/API'
 
 class AddPost extends React.Component{
 
+    //this is style object which will style the component
     style={
         WhiteFont:{
             color:'#FFFFFF'
@@ -25,6 +26,7 @@ class AddPost extends React.Component{
         }
     }
 
+    //state of component
     state={
         category:null,
         author:'',
@@ -39,6 +41,7 @@ class AddPost extends React.Component{
     }
 
 
+    //this method will add post in redux store and server
     addPost =()=>{
         //extracting data
         const {category, author, title, body} = this.state;
@@ -56,13 +59,9 @@ class AddPost extends React.Component{
             this.props.close();
             })
         }
-        else{
-            return;     //error condition due to insuffiecient data
-                        //TODO: handle this
-        }
     }
 
-
+    //this method will edit post stored in server and redux store
     editPost= ()=>{
         //extracting data
         const {id, title, body} = this.state;
@@ -76,14 +75,19 @@ class AddPost extends React.Component{
         }
     }
 
+     //this method will handle change of category field
     handleCategoryChange = (event, index, value) => this.setState({category:value});
 
+     //this method will handle change of author text field
     handleAuthorChange = (event, value) => this.setState({author:value});
 
+     //this method will handle change of title text field
     handleTitleChange = (event, value) => this.setState({title:value});
 
+     //this method will handle change of body text field
     handleBodyChange = (event, value) => this.setState({body:value});
 
+    //checking to run add post in edit mode or not
     componentWillMount(){
         if(this.props.post&&!this.state.editMode){
             this.setStateToEditMode();

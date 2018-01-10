@@ -25,6 +25,7 @@ class Comments extends React.Component{
         commentToEdit: null
     }
 
+    //this method will upVote comment 
     upVote=(id)=>{
         return ()=>{
             voteServerComment(id, 'upVote').then(()=>
@@ -33,6 +34,7 @@ class Comments extends React.Component{
         }
     }
 
+    //this method will downVote comment
     downVote=(id)=>{
         return ()=>{
             voteServerComment(id, 'downVote').then(()=>
@@ -58,6 +60,7 @@ class Comments extends React.Component{
         }))
     }
 
+    //loading component data
     componentWillMount(){
         ListItem.defaultProps.disabled=true;
         getComments(this.props.postID).then(comments=>{
@@ -65,6 +68,7 @@ class Comments extends React.Component{
         });
     }
 
+    //handle state when data is loaded
     componentDidMount(){
         this.setState({
             comments:this.props.comments.filter((comment)=>(comment.parentId === this.props.postID))||[],
@@ -72,6 +76,7 @@ class Comments extends React.Component{
         });
     }
 
+    //will run when component recive props ultimately when redux state is changed
     componentWillReceiveProps(props){
         this.setState({
             comments:props.comments.filter((comment)=>(comment.parentId === props.postID)),
@@ -79,6 +84,8 @@ class Comments extends React.Component{
         });
     }
 
+    //these method will handle ADD COMMENT DIALOG
+    
     handleAddCommentOpen= ()=>{
         this.setState({addCommentDialog:true});
     }

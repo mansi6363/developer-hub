@@ -14,12 +14,14 @@ import { uploadComment, editServerComment } from '../utils/API'
 
 class AddComment extends React.Component{
 
+    //this is style object which will style the component
     style={
         WhiteFont:{
             color:'#FFFFFF'
         }
     }
 
+    //state of componet
     state={
         parentId: this.props.parentID,
         author:'',
@@ -32,7 +34,7 @@ class AddComment extends React.Component{
         this.setState({...this.props.comment, editMode: true});
     }
 
-
+    //this method will add comment in server and redux
     addComment =()=>{
 
         console.log('adding comment');
@@ -53,13 +55,9 @@ class AddComment extends React.Component{
             this.props.close();
             });
         }
-        else{
-            return;     //error condition due to insuffiecient data
-                        //TODO: handle this
-        }
     }
 
-
+    //this method will edit comment stored in server and redux store
     editComment= ()=>{
         console.log('edit comment started');
         //extracting data
@@ -78,11 +76,13 @@ class AddComment extends React.Component{
         }
     }
 
-
+    //this method will handle change of author text field
     handleAuthorChange = (event, value) => this.setState({author:value});
 
+    //this method will handle change of body text field
     handleBodyChange = (event, value) => this.setState({body:value});
 
+    //will check if add comment should run in edit mode or not
     componentWillMount(){
         if(this.props.comment&&!this.state.editMode){
             this.setStateToEditMode();

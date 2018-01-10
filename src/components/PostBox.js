@@ -18,12 +18,14 @@ class PostBox extends React.Component{
         addPostOpen:false,
     }
 
+    //LOADING DATA FOR COMPONENT
     componentWillMount(){
        getAllPost().then(posts=>{
            this.props.dispatch(updatePosts(posts))
        })
     }
 
+    //these method will handle add post dialog  
     handleOpenPost = () => {
         this.setState({addPostOpen: true});
       };
@@ -36,10 +38,10 @@ class PostBox extends React.Component{
         console.log(this.props.sort);
         let posts = this.props.posts;
         switch(this.props.sort){
-            case 1: 
+            case 1:     //sort by timestamp
                 posts.sort(sortBy('-timestamp'));
                 break;
-            case 2: 
+            case 2:     //sort by rating
                 posts.sort(sortBy('-voteScore'));
                 break;
         }

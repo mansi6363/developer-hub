@@ -16,20 +16,25 @@ class AppBarComponents extends React.Component{
         openSorting:false
     }
 
+    //will toggle side drawer
     handleToggle = () => this.setState({open: !this.state.open});
 
+    //will close side drawer
     handleClose = () => this.setState({open: false});
 
+    //this method will sort post wrt time 
     sortByTime = () => {
         this.props.dispatch(setSort(1));
         this.handleSortClose();
     } 
 
+    //this method will sort post wrt Rating
     sortByRating = () => {
         this.props.dispatch(setSort(2));
         this.handleSortClose();
     }
 
+    //this method will handle event when sort button will click
     handleSortClick = (event) => {
         // This prevents ghost click.
         event.preventDefault();
@@ -40,12 +45,14 @@ class AppBarComponents extends React.Component{
         });
     }
 
+    //this method will close sorting box
     handleSortClose = () => {
         this.setState({
             openSorting: false,
           });
     }
 
+    //this method is called when sorting options are clicked
     handleSelect = (category) => {
         return ()=>{
             this.props.dispatch(setActiveCategory(category));
@@ -53,11 +60,9 @@ class AppBarComponents extends React.Component{
         }
     }
 
+    //loading component data
     componentWillMount(){
-        console.log('start');
         getAllCategories().then(categories=>{
-            console.log(this.props)
-           
             this.props.dispatch(addCategories(categories.map(category=>category.name)))
         });
     }
