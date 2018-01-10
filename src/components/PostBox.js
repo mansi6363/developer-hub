@@ -35,7 +35,6 @@ class PostBox extends React.Component{
       };
 
     render(){
-        console.log(this.props.sort);
         let posts = this.props.posts;
         switch(this.props.sort){
             case 1:     //sort by timestamp
@@ -43,6 +42,8 @@ class PostBox extends React.Component{
                 break;
             case 2:     //sort by rating
                 posts.sort(sortBy('-voteScore'));
+                break;
+            default:
                 break;
         }
         return (
@@ -92,7 +93,6 @@ class PostBox extends React.Component{
 }
 
 function mapStateToProps(state){
-    console.log(state)
     return{
       posts: state.postReducer.posts||[],            //it will create a prop property containing all posts stored in store 
       activeCategory: state.categoryReducer.activeCategory||'ALL',

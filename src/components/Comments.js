@@ -10,7 +10,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import Dialog from 'material-ui/Dialog';
 import AddComment from './AddComment';
 import { connect } from 'react-redux'
-import { upCommentRate, downCommentRate, editComment, deleteComment } from '../actions/index'
+import { upCommentRate, downCommentRate, deleteComment } from '../actions/index'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import {getComments, deleteCommentFromServer, voteServerComment} from '../utils/API'
@@ -85,7 +85,7 @@ class Comments extends React.Component{
     }
 
     //these method will handle ADD COMMENT DIALOG
-    
+
     handleAddCommentOpen= ()=>{
         this.setState({addCommentDialog:true});
     }

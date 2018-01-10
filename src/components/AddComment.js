@@ -37,7 +37,6 @@ class AddComment extends React.Component{
     //this method will add comment in server and redux
     addComment =()=>{
 
-        console.log('adding comment');
         //extracting data
         const {parentId ,author, body} = this.state;
         
@@ -59,9 +58,8 @@ class AddComment extends React.Component{
 
     //this method will edit comment stored in server and redux store
     editComment= ()=>{
-        console.log('edit comment started');
         //extracting data
-        const {id, author, body} = this.state;
+        const {id, body} = this.state;
 
         //genrating new timestamp
         const timestamp=Date.now();
@@ -90,7 +88,6 @@ class AddComment extends React.Component{
     }
 
     render(){
-        console.log(this.props);
         return(
             <div>
                 <TextField

@@ -68,7 +68,6 @@ class AppBarComponents extends React.Component{
     }
     
     render(){
-        console.log(this.props)
         return (
             <div>
                 <AppBar
@@ -115,7 +114,6 @@ class AppBarComponents extends React.Component{
 }
 
 function mapStateToProps(state){
-    console.log(state)
     return{
         categories: ['ALL', ...state.categoryReducer.categories],
         activeCategory: state.categoryReducer.activeCategory||'ALL'
