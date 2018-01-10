@@ -8,8 +8,6 @@ import { addPost, editPost } from '../actions';
 import uuidv1 from "uuid/v1";
 import {sendPost, sendEditedPost} from '../utils/API'
 
-const categories=['react', 'javascript', 'angular', 'udacity'];
-
 //This class provide add post modal in page
 //NOTE:-
 //unlike its name it can be also used to Edit post
@@ -104,7 +102,7 @@ class AddPost extends React.Component{
                     onChange={this.handleCategoryChange}
                     disabled = {this.state.editMode?true:false}
                 >
-                    {categories.map((category)=>(
+                    {this.props.categories.map((category)=>(
                         <MenuItem key={category} value={category} 
                             primaryText={<span className='menu-item'>{category}</span>} />
                     ))}
@@ -169,8 +167,10 @@ function mapDispatchToProps(dispatch, props){
     }
 }
 
-function mapStateToProps(){
-    return{}
+function mapStateToProps(state){
+    return{
+        categories: state.categoryReducer.categories
+    }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(AddPost);

@@ -7,8 +7,6 @@ import PostBox from './PostBox'
 import { Route } from 'react-router-dom'
 import Poster from './Poster'
 
-const categories=['All','react', 'javascript', 'angular', 'udacity'];
-
 class App extends Component {
   render() {
     return (
