@@ -162,6 +162,21 @@ section {
   }
 }
 
+
+/* error */
+.error{
+  font-weight: bolder;
+  color: rgb(165, 43, 43);
+  text-align: center;
+  background-color: #ffffff;
+  margin-top: 10%;
+  padding: 30px;
+  font-size: x-large;
+  font-family: 'Architects Daughter', cursive;
+  border-top: solid 3px rgb(192, 33, 33);
+}
+
+
 /*menu item of dialog box*/
 
 .menu-item{

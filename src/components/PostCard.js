@@ -74,7 +74,7 @@ class PostCard extends React.Component{
                                     <h1 className='post-title'>
                                             {!this.props.poster?
                                                 <Link to={{
-                                                    pathname:'/post',
+                                                    pathname:`/${this.props.post.category}/${this.props.post.id}`,
                                                     state:{postID:this.props.post.id}
                                                 }}>
                                                     {this.props.post.title}

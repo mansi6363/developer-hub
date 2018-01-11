@@ -5,6 +5,7 @@ export const UP_POST_RATE = 'UP_POST_RATE'
 export const DOWN_POST_RATE = 'DOWN_POST_RATE'
 export const EDIT_POST = 'EDIT_POST'
 export const UPDATE_POSTS = 'UPDATE_POSTS'
+export const SET_POST = 'SET_POST'
 
 //ACTION RELATED TO COMMENTS
 export const ADD_COMMENT = 'ADD_COMMENT'
@@ -68,6 +69,13 @@ export function updatePosts(posts){
     return{
         type: UPDATE_POSTS,
         posts
+    }
+}
+
+export function setPost(post){
+    return{
+        type: SET_POST,
+        post
     }
 }
 

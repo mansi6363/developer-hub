@@ -6,6 +6,7 @@ import AppBarComponents from './AppBar'
 import PostBox from './PostBox'
 import { Route } from 'react-router-dom'
 import Poster from './Poster'
+import Error404 from './error404'
 
 
 class App extends Component {
@@ -27,7 +28,8 @@ class App extends Component {
           <PostBox categoryMode={true}/>
         </div>
       )}/>
-      <Route path='/post' component={ Poster }/>
+      <Route exact path='/:category/:postID' component={ Poster }/>
+      <Route exact path='/error/post/404' component={Error404}/>
       </div>
     );
   }

@@ -2,44 +2,51 @@ import React from 'react'
 import PostCard from './PostCard'
 import Comments from './Comments'
 import { connect } from 'react-redux'
-import {updatePosts} from '../actions'
-import {getAllPost} from '../utils/API'
-
+import {updatePosts, setPost} from '../actions'
+import {getSinglePost} from '../utils/API'
+import { Redirect } from 'react-router-dom'
 
 class Poster extends React.Component{
 
-    
-    postID=this.props.location.state.postID;
+
+    state={
+        postError:false
+    }
 
     componentWillMount(){
-        if(this.props.posts.length!==0)
-            return;
-        
-        getAllPost().then(posts=>{
-            this.props.dispatch(updatePosts(posts))
+
+        //extracting url variable
+        const url = window.location.pathname;
+        const category = url.substring(url.indexOf('/')+1, url.lastIndexOf('/'));
+        const postId = url.substring(url.lastIndexOf('/')+1);
+
+        getSinglePost(postId).then(post=>{
+            if(post.error){
+                this.setState({postError:true});
+            }
+            this.props.dispatch(setPost(post))
         });
      }
 
     render(){
-        return(
-            this.props.posts.map(post=>{
-                if(post.id===this.postID){
-                    return(
-                        <div key={post.id}>
-                            <PostCard post={post} poster={true}/>    
-                            <Comments postID={post.id}/>
-                        </div>
-                    )
-                }
+            const post= this.props.post || null;
+            if(this.state.postError){
+                return (<Redirect to='/error/post/404'/>)
+            }
+            if(!post)
                 return null;
-            })
+            return(
+                <div key={post.id}>
+                    <PostCard post={post} poster={true}/>    
+                    <Comments postID={post.id}/>
+                </div>
         );
     };
 }
 
 function mapStateToProps(state){
     return{
-        posts: state.postReducer.posts||[]
+        post: state.postReducer.post||null
     }
 }
 

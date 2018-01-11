@@ -21,6 +21,13 @@ export const getAllPost = ()=>(
     )
 )
 
+//get single post
+export const getSinglePost = postId =>
+  fetch(`${api}/posts/${postId}`, {
+    headers
+  }).then(res => res.json());
+
+
 //fetch post from particular category
 export const fetchPostsFromCategory = category =>
   fetch(`${api}/${category}/posts`, { headers }).then(data => data.json());
@@ -32,7 +39,7 @@ export const sendPost = (post)=>(
         headers,
         body: JSON.stringify(post)
       })
-    )
+);
 
 //edit post
 export const sendEditedPost = (post, postId) => (

@@ -6,10 +6,12 @@ import {
     UP_POST_RATE,
     DOWN_POST_RATE,
     UPDATE_POSTS,
+    SET_POST,
 } from '../actions/index';
 
 export const initialState = {
     posts: [],      //keep all the post stored
+    post: null      //keep active post
 }
 
 
@@ -81,6 +83,11 @@ function postReducer(state=initialState, action){
             return{
                 ...state,
                 posts: action.posts
+            }
+        case SET_POST:
+            return{
+                ...state,
+                post: action.post
             }
         default:                            // handling default case
             return state;                   //in default case no changes are needed
