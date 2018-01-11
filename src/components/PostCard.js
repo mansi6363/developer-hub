@@ -101,6 +101,7 @@ class PostCard extends React.Component{
                                 {this.props.post.body}
                             </div>
                             <Rating voteScore={this.props.post.voteScore} up={this.upVote} down={this.downVote}/>
+                            <div className='comment-count'>No Of Comments: {this.props.post.commentCount}</div>
                         </CardText>
                     </Card>
                 </div>

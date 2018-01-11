@@ -20,7 +20,6 @@ class PostBox extends React.Component{
 
     //LOADING DATA FOR COMPONENT
     componentWillMount(){
-        console.log(this.props)
         switch(this.props.categoryMode){
             case true:
                 const url = window.location.pathname;

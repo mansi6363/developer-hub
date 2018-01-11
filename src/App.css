@@ -263,6 +263,13 @@ text-decoration: none;
 
 }
 
+.comment-count{
+  margin-top: 20px;
+  margin-bottom: 5px; 
+  color: rgba(20, 142, 223, 0.774);
+  font-weight: bold
+}
+
 /*comments*/
 .comments-section{
   margin-top: 20px;

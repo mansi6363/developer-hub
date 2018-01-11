@@ -2,7 +2,7 @@ import React from 'react'
 import PostCard from './PostCard'
 import Comments from './Comments'
 import { connect } from 'react-redux'
-import {updatePosts, setPost} from '../actions'
+import {setPost} from '../actions'
 import {getSinglePost} from '../utils/API'
 import { Redirect } from 'react-router-dom'
 
@@ -17,11 +17,11 @@ class Poster extends React.Component{
 
         //extracting url variable
         const url = window.location.pathname;
-        const category = url.substring(url.indexOf('/')+1, url.lastIndexOf('/'));
         const postId = url.substring(url.lastIndexOf('/')+1);
 
         getSinglePost(postId).then(post=>{
-            if(post.error){
+            console.log(post)
+            if(post.error||Object.keys(post).length===0){
                 this.setState({postError:true});
             }
             this.props.dispatch(setPost(post))

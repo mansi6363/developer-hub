@@ -6,6 +6,8 @@ export const DOWN_POST_RATE = 'DOWN_POST_RATE'
 export const EDIT_POST = 'EDIT_POST'
 export const UPDATE_POSTS = 'UPDATE_POSTS'
 export const SET_POST = 'SET_POST'
+export const INCREASE_NO_OF_COMMENTS = 'INCREASE_NO_OF_COMMENTS'
+export const DECREASE_NO_OF_COMMENTS = 'DECREASE_NO_OF_COMMENTS'
 
 //ACTION RELATED TO COMMENTS
 export const ADD_COMMENT = 'ADD_COMMENT'
@@ -76,6 +78,20 @@ export function setPost(post){
     return{
         type: SET_POST,
         post
+    }
+}
+
+export function increaseNoOfComments(id){
+    return{
+        type: INCREASE_NO_OF_COMMENTS,
+        id
+    }
+}
+
+export function decreaseNoOfComments(id){
+    return{
+        type: DECREASE_NO_OF_COMMENTS,
+        id       
     }
 }
 

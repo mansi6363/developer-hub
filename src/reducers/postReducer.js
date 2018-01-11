@@ -7,6 +7,8 @@ import {
     DOWN_POST_RATE,
     UPDATE_POSTS,
     SET_POST,
+    INCREASE_NO_OF_COMMENTS,
+    DECREASE_NO_OF_COMMENTS,
 } from '../actions/index';
 
 export const initialState = {
@@ -27,6 +29,7 @@ function postReducer(state=initialState, action){
                         title: action.title,        
                         author: action.author,
                         body: action.body,
+                        commentCount: 0,    //will record no of comments
                         category: action.category,
                         voteScore: 1,               //initialized votescore by default value 1
                         deleted: false              //initially deleted property will be false
@@ -44,6 +47,7 @@ function postReducer(state=initialState, action){
                         title: action.title,        //title will change acc to new i/p
                         author: post.author,      //author will change acc to new i/p
                         body: action.body,          //body will change acc to new i/p
+                        commentCount: post.commentCount,      //No of comments will remain same
                         category: post.category,  //category will change acc to new i/p
                         voteScore: post.voteScore,  //votescore will not change 
                         deleted: false,              //post deleted will remain false
@@ -88,6 +92,43 @@ function postReducer(state=initialState, action){
             return{
                 ...state,
                 post: action.post
+            }
+        case INCREASE_NO_OF_COMMENTS:
+            console.log('called');
+            return{
+                ...state,
+                posts: state.posts.map(post=>{
+                  if(post.id!==action.id)   
+                    return post;
+                  else{
+                    return{
+                        ...post,
+                        commentCount: post.commentCount +1
+                    }
+                  }
+                }),
+                post:{
+                    ...state.post,
+                    commentCount: state.post.commentCount + 1
+                }
+            }
+        case DECREASE_NO_OF_COMMENTS:
+            return{
+                ...state,
+                posts: state.posts.map(post=>{
+                if(post.id!==action.id)   
+                    return post;
+                else{
+                    return{
+                        ...post,
+                        commentCount: post.commentCount -1
+                    }
+                }
+                }),
+                post:{
+                    ...state.post,
+                    commentCount: state.post.commentCount - 1
+                }
             }
         default:                            // handling default case
             return state;                   //in default case no changes are needed

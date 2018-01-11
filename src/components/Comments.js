@@ -14,7 +14,7 @@ import { upCommentRate, downCommentRate, deleteComment } from '../actions/index'
 import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 import {getComments, deleteCommentFromServer, voteServerComment} from '../utils/API'
-import { updateComments} from '../actions'
+import { updateComments, decreaseNoOfComments } from '../actions'
 
 class Comments extends React.Component{
 
@@ -44,11 +44,12 @@ class Comments extends React.Component{
     }
 
     //will delete comment
-    deleteComment= (id)=>{
+    deleteComment= (id, parentId)=>{
         return ()=>{
-            deleteCommentFromServer(id).then(()=>
-            this.props.dispatch(deleteComment(id))
-            );
+            deleteCommentFromServer(id).then(()=>{
+            this.props.dispatch(deleteComment(id));
+            this.props.dispatch(decreaseNoOfComments(parentId));
+            });
         }
     }
 
@@ -136,7 +137,8 @@ class Comments extends React.Component{
                                                 </h3>
                                                 <div className='post-edit-options'>
                                                     <EditIcon onClick={this.editComment(comment)}/>
-                                                    <DeleteIcon onClick={this.deleteComment(comment.id)}/>
+                                                    <DeleteIcon onClick={this.deleteComment(comment.id, 
+                                                        comment.parentId)}/>
                                                 </div>
                                                 <div className='comment'>
                                                     {comment.body}

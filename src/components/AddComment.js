@@ -2,7 +2,7 @@ import React from 'react'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import {addComment, editComment} from '../actions/index'
+import {addComment, editComment, increaseNoOfComments} from '../actions/index'
 import uuidv1 from "uuid/v1";
 import { uploadComment, editServerComment } from '../utils/API'
 
@@ -133,6 +133,9 @@ function mapDispatchToProps(dispatch){
                 timestamp,
                 body,
                 author
+            ));
+            dispatch(increaseNoOfComments(
+                parentID
             ));
         },
         editComment:(id, body)=>{
