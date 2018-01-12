@@ -74,7 +74,11 @@ function postReducer(state=initialState, action){
                         ...post,
                         voteScore: post.voteScore + 1      //increase vote by 1
                     }
-                })
+                }),
+                post:{
+                    ...state.post,
+                    voteScore: state.post.voteScore + 1
+                }
             }
         case DOWN_POST_RATE:
             return{
@@ -84,9 +88,13 @@ function postReducer(state=initialState, action){
                         return post;                //return post with no difference
                     return{
                         ...post,
-                        voteScore: post.voteScore -1        //decrease vote by 1
+                        voteScore: post.voteScore - 1        //decrease vote by 1
                     }
-                })
+                }),
+                post:{
+                    ...state.post,
+                    voteScore: state.post.voteScore - 1
+                }
             }
         case UPDATE_POSTS:
             return{
