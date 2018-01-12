@@ -12,9 +12,9 @@ class App extends Component {
   render() {
     return (
       <div>
-      <Header/>
       <Route exact path='/' render={()=>(
         <div>
+          <Header/>
           <Cover/>
           <AppBarComponents/>
           <PostBox categoryMode={false}/>
@@ -22,13 +22,24 @@ class App extends Component {
       )} />
       <Route exact path='/:category' render={()=>(
         <div>
+          <Header/>
           <Cover/>
           <AppBarComponents />
           <PostBox categoryMode={true}/>
         </div>
       )}/>
-      <Route exact path='/:category/:postID' component={ Poster }/>
-      <Route exact path='/error/post/404' component={Error404}/>
+      <Route exact path='/:category/:postID' render={()=>(
+        <div>
+          <AppBarComponents />
+          <Poster/>
+        </div>
+      )}/>
+      <Route exact path='/error/post/404' render={()=>(
+       <div>
+          <AppBarComponents />
+          <Error404/>
+       </div>
+      )}/>
       </div>
     );
   }
