@@ -74,10 +74,11 @@ class AppBarComponents extends React.Component{
                 <AppBar
                     title="Post"
                     onLeftIconButtonClick={this.handleToggle}
-                    iconElementRight={<div>
+                    iconElementRight={this.props.sortDisable?null:(<div>
                                         <FlatButton
                                             label="sort"
                                             onClick={this.handleSortClick}
+                                            className="sort-btn"
                                         />
                                         <Popover
                                         open={this.state.openSorting}
@@ -91,7 +92,7 @@ class AppBarComponents extends React.Component{
                                             <MenuItem primaryText="Sort by Rating" onClick={this.sortByRating}/>
                                         </Menu>
                                         </Popover>
-                                    </div>}
+                                </div>)}
                 />
                 <Drawer
                     docked={false}

@@ -16,7 +16,7 @@ class App extends Component {
         <div>
           <Header/>
           <Cover/>
-          <AppBarComponents/>
+          <AppBarComponents sortDisable={false}/>
           <PostBox categoryMode={false}/>
         </div>
       )} />
@@ -24,19 +24,19 @@ class App extends Component {
         <div>
           <Header/>
           <Cover/>
-          <AppBarComponents />
+          <AppBarComponents sortDisable={false} />
           <PostBox categoryMode={true}/>
         </div>
       )}/>
       <Route exact path='/:category/:postID' render={()=>(
         <div>
-          <AppBarComponents />
+          <AppBarComponents sortDisable={true}/>
           <Poster/>
         </div>
       )}/>
       <Route exact path='/error/post/404' render={()=>(
        <div>
-          <AppBarComponents />
+          <AppBarComponents sortDisable={true}/>
           <Error404/>
        </div>
       )}/>

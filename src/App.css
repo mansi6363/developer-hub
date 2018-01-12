@@ -163,6 +163,11 @@ section {
 }
 
 
+/* app bar */
+.sort-btn{
+  color: #f7f7f7 !important;
+}
+
 /* error */
 .error{
   font-weight: bolder;
