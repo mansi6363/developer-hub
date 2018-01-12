@@ -4,9 +4,9 @@ import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { connect } from 'react-redux';
-import { addPost, editPost } from '../actions'; 
+import { addPost, editPost, addCategories} from '../actions'; 
 import uuidv1 from "uuid/v1";
-import {sendPost, sendEditedPost} from '../utils/API'
+import {sendPost, sendEditedPost, getAllCategories} from '../utils/API'
 
 //This class provide add post modal in page
 //NOTE:-
@@ -37,6 +37,7 @@ class AddPost extends React.Component{
 
     //this method will  change state to edit mode
     setStateToEditMode = ()=>{
+        console.log(this.props.post)
         this.setState({...this.props.post, editMode: true});
     }
 
@@ -89,6 +90,11 @@ class AddPost extends React.Component{
 
     //checking to run add post in edit mode or not
     componentWillMount(){
+        if(this.props.categories.length===0){
+            getAllCategories().then(categories=>{
+                this.props.addCategoriesToStore(categories)
+            });
+        }
         if(this.props.post&&!this.state.editMode){
             this.setStateToEditMode();
         }
@@ -166,7 +172,8 @@ function mapDispatchToProps(dispatch, props){
             id||null,
             title||null,
             body||null
-        )))
+        ))),
+        addCategoriesToStore: (categories)=> dispatch(addCategories(categories.map(category=>category.name)))
     }
 }
 
