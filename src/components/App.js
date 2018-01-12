@@ -24,7 +24,7 @@ class App extends Component {
       <Route exact path='/:category' render={()=>(
         <div>
           <Cover/>
-          <AppBarComponents categoryDisable={true}/>
+          <AppBarComponents />
           <PostBox categoryMode={true}/>
         </div>
       )}/>

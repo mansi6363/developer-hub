@@ -20,7 +20,6 @@ class Poster extends React.Component{
         const postId = url.substring(url.lastIndexOf('/')+1);
 
         getSinglePost(postId).then(post=>{
-            console.log(post)
             if(post.error||Object.keys(post).length===0){
                 this.setState({postError:true});
             }

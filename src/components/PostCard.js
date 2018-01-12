@@ -32,7 +32,6 @@ class PostCard extends React.Component{
     handleDeletePost = ()=>{
         deletePostOnline(this.props.post.id).then(()=>{
         this.props.dispatch(deletePost(this.props.post.id));       
-        if(this.props.location.pathname==='/post') 
             this.props.history.push('/');
         })
     }

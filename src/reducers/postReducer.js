@@ -53,6 +53,11 @@ function postReducer(state=initialState, action){
                         deleted: false,              //post deleted will remain false
                     }
                 }),
+                post:{
+                    ...state.post,
+                    title: action.title,
+                    body: action.body
+                }
             }
         case DELETE_POST:   //handle delete post action
             return{

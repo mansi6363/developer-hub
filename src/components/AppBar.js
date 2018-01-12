@@ -73,8 +73,7 @@ class AppBarComponents extends React.Component{
             <div>
                 <AppBar
                     title="Post"
-                    onLeftIconButtonClick={this.props.categoryDisable?undefined:this.handleToggle}
-                    showMenuIconButton={this.props.categoryDisable?false:true}
+                    onLeftIconButtonClick={this.handleToggle}
                     iconElementRight={<div>
                                         <FlatButton
                                             label="sort"
@@ -100,6 +99,13 @@ class AppBarComponents extends React.Component{
                     open={this.state.open}
                     onRequestChange={(open) => this.setState({open})}
                 >
+                    <Link to='/' className='category-links'> 
+                            <MenuItem
+                                onClick={this.handleSelect(null)}
+                            >
+                                ALL                                
+                            </MenuItem>
+                    </Link>
                     {this.props.categories.map((category=>(
                         <Link to={`/${category}`} className='category-links' key={category}>
                             <MenuItem

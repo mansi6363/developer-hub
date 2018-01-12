@@ -5,37 +5,66 @@ import PostCard from './PostCard';
 import Dialog from 'material-ui/Dialog';
 import AddPost from './AddPost'
 import { connect } from 'react-redux'
-import {updatePosts} from '../actions'
+import {updatePosts, setActiveCategory} from '../actions'
 import {getAllPost, fetchPostsFromCategory} from '../utils/API'
 import sortBy from 'sort-by'
-
-
 
 //Post box class renders posts posted by users
 class PostBox extends React.Component{
 
     state={
         addPostOpen:false,
+        category: null
     }
 
-    //LOADING DATA FOR COMPONENT
-    componentWillMount(){
+     load = (update)=>{
         switch(this.props.categoryMode){
             case true:
                 const url = window.location.pathname;
                 const catUrl= url.substring(url.lastIndexOf('/')+1);    //will contain category
-                console.log(catUrl);
-                fetchPostsFromCategory(catUrl).then(posts=>{
-                this.props.dispatch(updatePosts(posts))
+                let category = null;
+
+                if(update&&!update.activeCategory){
+                    update.setCat(catUrl);
+                }
+
+                if(!this.state.category||this.state.category!==catUrl){
+                    category = catUrl
+                    this.setState({category:category})
+                }
+                else
+                    category= this.state.category;               
+             
+                if(update&&this.state.category&&update.activeCategory===this.state.category)
+                    return;
+            
+                fetchPostsFromCategory(category).then(posts=>{
+                this.props.setPost(posts)
                 })
                 break;
             case false:
                 getAllPost().then(posts=>{
-                    this.props.dispatch(updatePosts(posts))
+                    this.props.setPost(posts)
                 })
                 break;
             default: break;
             }
+    }
+
+    //LOADING DATA FOR COMPONENT
+    componentWillMount(){
+        this.load();
+    }
+
+    componentWillReceiveProps(props){
+    const url = window.location.pathname;
+    const catUrl= url.substring(url.lastIndexOf('/')+1);    //will contain category
+    if(!catUrl)
+        return;
+    if(props.activeCategory){
+        this.setState({category: props.activeCategory});
+      }
+      this.load(props);
     }
 
     //these method will handle add post dialog  
@@ -94,8 +123,15 @@ class PostBox extends React.Component{
 function mapStateToProps(state){
     return{
       posts: state.postReducer.posts||[],     //it will create a prop property containing all posts stored in store 
-      sort: state.sortingReducer.sort||0
+      sort: state.sortingReducer.sort||0, 
+      activeCategory: state.categoryReducer.activeCategory||null
     }                                   
   }
 
-export default connect(mapStateToProps)(PostBox);
+function mapDispatchToProps(dispatch){
+    return{
+        setCat: (category)=>dispatch(setActiveCategory(category)),
+        setPost: (posts)=>dispatch(updatePosts(posts))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(PostBox);
