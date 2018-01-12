@@ -103,15 +103,17 @@ class AppBarComponents extends React.Component{
                     <Link to='/' className='category-links'> 
                             <MenuItem
                                 onClick={this.handleSelect(null)}
+                                className='menu-items'
                             >
-                                ALL                                
+                                Home                                
                             </MenuItem>
                     </Link>
                     {this.props.categories.map((category=>(
                         <Link to={`/${category}`} className='category-links' key={category}>
                             <MenuItem
                                 onClick={this.handleSelect(category)}
-                                >
+                                className='menu-items'
+                            >
                                 
                                     {category}                                
                             </MenuItem>
