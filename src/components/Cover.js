@@ -2,7 +2,6 @@ import React from 'react'
 import chatIcon from '../chatIcon.svg'
 import '../App.css';
 
-
 //this function return cover section of the web page
 function cover(){
     return(

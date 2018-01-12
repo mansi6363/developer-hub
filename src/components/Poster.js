@@ -8,7 +8,6 @@ import { Redirect } from 'react-router-dom'
 
 class Poster extends React.Component{
 
-
     state={
         postError:false
     }

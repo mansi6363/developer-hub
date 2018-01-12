@@ -8,7 +8,6 @@ import { Route } from 'react-router-dom'
 import Poster from './Poster'
 import Error404 from './error404'
 
-
 class App extends Component {
   render() {
     return (
