@@ -37,7 +37,6 @@ class AddPost extends React.Component{
 
     //this method will  change state to edit mode
     setStateToEditMode = ()=>{
-        console.log(this.props.post)
         this.setState({...this.props.post, editMode: true});
     }
 
